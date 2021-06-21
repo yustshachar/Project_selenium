@@ -12,9 +12,6 @@ driver.find_element_by_id("tabletsImg").click()
 
 # כניסה לעמוד מוצר
 driver.find_element_by_id("17").click()
-# בוא נראה מה קורה
-# הנה גם אני בודק
-#שינוי לבדיקה בלה בלה בלה
 
 # בחירת צבע שחור
 driver.find_element_by_css_selector(".BLACK").click()
