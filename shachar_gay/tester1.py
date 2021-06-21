@@ -14,11 +14,10 @@ driver.find_element_by_id("tabletsImg").click()
 driver.find_element_by_id("17").click()
 
 # בחירת צבע שחור
-driver.find_element_by_css_selector(".BLACK").click()
+driver.find_element_by_css_selector("[title='BLACK']").click()
 
 # הוספת כמות שיהיה 3
-driver.find_element_by_css_selector(".plus").click()
-driver.find_element_by_css_selector(".plus").click()
+driver.find_element_by_name("quantity").send_keys("3")
 
 # לחיצה על הוספה לעגלה
 driver.find_element_by_name("save_to_cart").click()
@@ -48,3 +47,9 @@ if count == 5:
     print("test pass")
 else:
     print("test failed")
+
+# חזרה לעמוד הראשי
+driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']")
+
+sleep(1)
+driver.close()
