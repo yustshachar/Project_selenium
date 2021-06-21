@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shachar_gay/tester1.py" beforeDir="false" afterPath="$PROJECT_DIR$/shachar_gay/tester1.py" afterDir="false" />
-    </list>
+    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="check2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,6 +62,19 @@
       <option name="presentableId" value="Default" />
       <updated>1624273237960</updated>
     </task>
+    <task id="LOCAL‎00001" summary="check">
+      <created>1624276436772</created>
+      <option name="number" value="LOCAL‎00001" />
+      <option name="presentableId" value="LOCAL‎00001" />
+      <updated>1624276436772</updated>
+    </task>
+    <task id="LOCAL‎00002" summary="check2">
+      <created>1624276646335</created>
+      <option name="number" value="LOCAL‎00002" />
+      <option name="presentableId" value="LOCAL‎00002" />
+      <updated>1624276646335</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -77,6 +87,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="check" />
+    <MESSAGE value="check2" />
+    <option name="LAST_COMMIT_MESSAGE" value="check2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
