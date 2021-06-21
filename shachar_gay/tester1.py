@@ -26,5 +26,25 @@ driver.find_element_by_name("save_to_cart").click()
 # חזרה לעמוד הראשי
 driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']")
 
-
+# בחירה של קטגוריה לפטופים
 driver.find_element_by_id("laptopsImg")
+
+# כניסה לעמוד מוצר נוסף
+driver.find_element_by_id("2").click()
+
+# בחירת צבע אדום
+driver.find_element_by_css_selector("#bunny.RED").click()
+
+# הוספת כמות ל2
+driver.find_element_by_class_name("plus").click()
+
+# לחיצה על הוספה לעגלה
+driver.find_element_by_name("save_to_cart").click()
+
+# הכנסת הכמות למשתנה
+count=driver.find_element_by_css_selector("#shoppingCartLink>span").text
+
+if count == 5:
+    print("test pass")
+else:
+    print("test failed")
