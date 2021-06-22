@@ -3,10 +3,11 @@ class product_page:
         self.driver=driver
 
     def color(self, name):
-        return self.driver.find_element_by_css_selector(f"[title='{name.upper()}']")
+        self.driver.find_element_by_css_selector(f"[title='{name}']")
+        return self.driver.find_element_by_css_selector(f"[title='{name}']")
 
-    def choose_color(self, color):
-        self.color(color).click()
+    def choose_color(self, name):
+        self.color(name.upper()).click()
 
     def quantity(self):
         return self.driver.find_element_by_name("quantity")
@@ -28,7 +29,7 @@ class product_page:
         self.back_to_home_page().click()
 
     def choose_quantity(self, count):
-        while self.driver.find_element_by_name("quantity").text < count:
+        for i in range(1, count):
             self.driver.find_element_by_class_name("plus").click()
 
 

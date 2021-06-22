@@ -19,10 +19,12 @@ driver.find_element_by_id("17").click()
 driver.find_element_by_css_selector("[title='BLACK']").click()
 
 # הוספת כמות שיהיה 3
-driver.find_element_by_name("quantity").click()
-driver.find_element_by_name("quantity").clear()
-driver.find_element_by_name("quantity").send_keys("3")
-sleep(3)
+for i in range(1,3):
+    driver.find_element_by_class_name("plus").click()
+# driver.find_element_by_name("quantity").click()
+# driver.find_element_by_name("quantity").clear()
+# driver.find_element_by_name("quantity").send_keys("3")
+# sleep(3)
 
 # לחיצה על הוספה לעגלה
 driver.find_element_by_name("save_to_cart").click()
