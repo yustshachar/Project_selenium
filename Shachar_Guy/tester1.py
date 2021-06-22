@@ -17,39 +17,49 @@ driver.find_element_by_id("17").click()
 driver.find_element_by_css_selector("[title='BLACK']").click()
 
 # הוספת כמות שיהיה 3
+sleep(2)
+driver.find_element_by_name("quantity").click()
+sleep(2)
+driver.find_element_by_name("quantity").clear()
+
+sleep(2)
 driver.find_element_by_name("quantity").send_keys("3")
-
-# לחיצה על הוספה לעגלה
-driver.find_element_by_name("save_to_cart").click()
-
-# חזרה לעמוד הראשי
-driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']")
-
-# בחירה של קטגוריה לפטופים
-driver.find_element_by_id("laptopsImg")
-
-# כניסה לעמוד מוצר נוסף
-driver.find_element_by_id("2").click()
-
-# בחירת צבע אדום
-driver.find_element_by_css_selector("#bunny.RED").click()
-
-# הוספת כמות ל2
-driver.find_element_by_class_name("plus").click()
-
-# לחיצה על הוספה לעגלה
-driver.find_element_by_name("save_to_cart").click()
-
-# הכנסת הכמות למשתנה
-count=driver.find_element_by_css_selector("#shoppingCartLink>span").text
-
-if count == 5:
-    print("test pass")
-else:
-    print("test failed")
-
-# חזרה לעמוד הראשי
-driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']")
-
-sleep(1)
-driver.close()
+sleep(3)
+#
+# # לחיצה על הוספה לעגלה
+# driver.find_element_by_name("save_to_cart").click()
+#
+# # חזרה לעמוד הראשי
+# driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']").click()
+#
+# # בחירה של קטגוריה לפטופים
+# driver.find_element_by_id("laptopsImg").click()
+#
+# # כניסה לעמוד מוצר נוסף
+# driver.find_element_by_id("2").click()
+#
+# # בחירת צבע אדום
+# driver.find_element_by_css_selector("#bunny.RED").click()
+#
+# # הוספת כמות ל2
+# driver.find_element_by_name("quantity").clear()
+# driver.find_element_by_name("quantity").send_keys("5")
+# sleep(3)
+#
+# # לחיצה על הוספה לעגלה
+# driver.find_element_by_name("save_to_cart").click()
+#
+# # הכנסת הכמות למשתנה
+# count=driver.find_element_by_css_selector("#shoppingCartLink>span").text
+# print(count)
+#
+# if count == 5:
+#     print("test pass")
+# else:
+#     print("test failed")
+#
+# # חזרה לעמוד הראשי
+# driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']")
+#
+# sleep(1)
+# driver.close()
