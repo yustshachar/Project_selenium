@@ -3,7 +3,7 @@ class home_page:
         self.driver=driver
 
     def category(self, name):
-        return self.driver.find_element_by_id(f"{name}Img")
+        return self.driver.find_element_by_id(f"{name.lower()}Img")
 
     def click_category(self, name):
         self.category(name).click()

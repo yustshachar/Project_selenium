@@ -11,9 +11,9 @@ class product_page:
     def quantity(self):
         return self.driver.find_element_by_name("quantity")
 
-    def choose_quantity(self, num):
-        self.quantity().clear()
-        self.quantity().send_keys(f"{num}")
+    # def choose_quantity1111(self, num):
+    #     self.quantity().clear()
+    #     self.quantity().send_keys(f"{num}")
 
     def save_to_card(self):
         return self.driver.find_element_by_name("save_to_cart")
@@ -26,3 +26,9 @@ class product_page:
 
     def back_to_home_page_click(self):
         self.back_to_home_page().click()
+
+    def choose_quantity(self, count):
+        while self.driver.find_element_by_name("quantity").text < count:
+            self.driver.find_element_by_class_name("plus").click()
+
+
