@@ -32,4 +32,21 @@ class product_page:
         for i in range(1, count):
             self.driver.find_element_by_class_name("plus").click()
 
+    def icon_x_cart(self):
+        return self.driver.find_elements_by_css_selector("[class='removeProduct iconCss iconX']")
+
+    def icon_x_cart_click(self):
+        self.icon_x_cart()[-1].click()
+
+    def card(self):
+        return self.driver.find_element_by_id("menuCart")
+
+    def card_click(self):
+        self.card().click()
+
+    def price_product(self):
+        return self.driver.find_element_by_css_selector("#Description>h2[class='roboto-thin screen768 ng-binding']").text
+
+
+
 
