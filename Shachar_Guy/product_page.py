@@ -16,11 +16,11 @@ class product_page:
     #     self.quantity().clear()
     #     self.quantity().send_keys(f"{num}")
 
-    def save_to_card(self):
+    def save_to_cart(self):
         return self.driver.find_element_by_name("save_to_cart")
 
-    def save_to_card_click(self):
-        self.save_to_card().click()
+    def save_to_cart_click(self):
+        self.save_to_cart().click()
 
     def back_to_home_page(self):
         return self.driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']")
@@ -38,11 +38,11 @@ class product_page:
     def icon_x_cart_click(self):
         self.icon_x_cart()[-1].click()
 
-    def card(self):
+    def cart(self):
         return self.driver.find_element_by_id("menuCart")
 
-    def card_click(self):
-        self.card().click()
+    def cart_click(self):
+        self.cart().click()
 
     def price_product(self):
         price_str = self.driver.find_element_by_css_selector("#Description>h2[class='roboto-thin screen768 ng-binding']").text[1:]

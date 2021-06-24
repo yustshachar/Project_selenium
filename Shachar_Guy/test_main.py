@@ -10,7 +10,7 @@ from Shachar_Guy.login_in_order_payment_page import login_in_order_payment_page
 
 class test_main(TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome(executable_path=r"C:\Users\yusts\Desktop\שחר\בדיקות תוכנה\sel\chromedriver.exe")
+        self.driver = webdriver.Chrome(executable_path=r"C:\selenium\chromedriver.exe")
         self.driver.implicitly_wait(20)
         self.link_web = "https://www.advantageonlineshopping.com/#/"
         self.driver.get(self.link_web)
@@ -190,7 +190,7 @@ class test_main(TestCase):
 
         self.product_page.checkout_popup_click()
 
-        self.login_in_order_payment_page.username().s
+        self.login_in_order_payment_page.username().send_keys(username)
 
 
 
