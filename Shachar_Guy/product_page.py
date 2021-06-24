@@ -51,5 +51,11 @@ class product_page:
     def page_bar(self):
         return self.driver.find_elements_by_css_selector("nav>a")
 
+    def checkout_popup(self):
+        return self.driver.find_element_by_id("checkOutPopUp")
+
+    def checkout_popup_click(self):
+        self.checkout_popup().click()
+
 
 

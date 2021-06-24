@@ -5,7 +5,8 @@ from time import sleep
 from Shachar_Guy.home_page import home_page
 from Shachar_Guy.category_page import category_page
 from Shachar_Guy.product_page import product_page
-from Shachar_Guy.card_page import card_page
+from Shachar_Guy.cart_page import cart_page
+from Shachar_Guy.login_in_order_payment_page import login_in_order_payment_page
 
 class test_main(TestCase):
     def setUp(self):
@@ -17,7 +18,8 @@ class test_main(TestCase):
         self.home_page=home_page(self.driver)
         self.category_page=category_page(self.driver)
         self.product_page=product_page(self.driver)
-        self.card_page=card_page(self.driver)
+        self.cart_page=cart_page(self.driver)
+        self.login_in_order_payment_page=login_in_order_payment_page(self.driver)
         self.xl = load_workbook("ExcelTesting.xlsx").active
 
     def tearDown(self):
@@ -43,7 +45,7 @@ class test_main(TestCase):
         # בחירת כמות
         self.product_page.choose_quantity(count1)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # חזרה לעמוד הראשי
         self.product_page.back_to_home_page_click()
         # לחיצה לכניסה לעמוד הקטגוריה
@@ -55,7 +57,7 @@ class test_main(TestCase):
         # בחירת כמות
         self.product_page.choose_quantity(count2)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # בדיקה האם חיבור הכמות שווה לכמות המופיעה
         self.assertEqual(count1+count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
 
@@ -72,7 +74,7 @@ class test_main(TestCase):
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod1)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # חזרה לעמוד הראשי
         self.product_page.back_to_home_page_click()
         # לחיצה לכניסה לעמוד הקטגוריה
@@ -80,7 +82,7 @@ class test_main(TestCase):
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod2)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # בודק את כמות המוצרים בעגלה
         before = len(self.product_page.icon_x_cart())
         # מוחק את המוצר האחרון שהצטרף לעגלת קניות
@@ -113,7 +115,7 @@ class test_main(TestCase):
         # בחירת כמות
         self.product_page.choose_quantity(count1)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # חזרה לעמוד הראשי
         self.product_page.back_to_home_page_click()
         # לחיצה לכניסה לעמוד הקטגוריה
@@ -125,7 +127,7 @@ class test_main(TestCase):
         # בחירת כמות
         self.product_page.choose_quantity(count2)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # חזרה לעמוד הראשי
         self.product_page.back_to_home_page_click()
         # לחיצה לכניסה לעמוד הקטגוריה
@@ -137,16 +139,16 @@ class test_main(TestCase):
         # בחירת כמות
         self.product_page.choose_quantity(count3)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # מעבר לעמוד עגלת הקניות
-        self.product_page.card_click()
+        self.product_page.cart_click()
         # בדיקה אם המחיר הסופי שווה למחירי המוצרים כפול הכמויות (עם עיגול של 2 ספרות אחרי הנקודה)
-        self.assertEqual(self.card_page.total(), round(price_p1+price_p2+price_p3,2))
+        self.assertEqual(self.cart_page.total(), round(price_p1+price_p2+price_p3,2))
         # הדפסת עגלת הקניות
         for i in range(3):
-            print(self.card_page.name_products()[i].text, end="\t")
-            print(self.card_page.quantity_products()[i].text, end="\t")
-            print(self.card_page.price_products()[i].text, end="\t")
+            print(self.cart_page.name_products()[i].text, end="\t")
+            print(self.cart_page.quantity_products()[i].text, end="\t")
+            print(self.cart_page.price_products()[i].text, end="\t")
             print()
 
     def test_6(self):
@@ -160,21 +162,38 @@ class test_main(TestCase):
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod)
         # הכנסה לעגלה
-        self.product_page.save_to_card_click()
+        self.product_page.save_to_cart_click()
         # חזרה לעמוד הקודם
         self.driver.back()
         # בודק אם הכותרת היא טאבלט
         self.assertEqual(self.category_page.text_title_page(), "TABLETS")
         # חזרה לעמוד הקודם
         self.driver.back()
-        # בודק שהכתובת הנוכחית היא הכתובת של עמוד הבית
+        # בודק שהכתובת הנוכחית שווה להכתובת של עמוד הבית
         self.assertEqual(self.driver.current_url, self.link_web)
 
     def test_8(self):
         pass
 
     def test_9(self):
-        pass
+        username = "shachar"
+        password = "Password1"
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat = self.xl["C22"].value
+        prod = self.xl["C23"].value
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        self.product_page.checkout_popup_click()
+
+        self.login_in_order_payment_page.username().s
+
+
+
 
     def test_10(self):
         pass

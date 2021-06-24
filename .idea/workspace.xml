@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="עדכון שחר" />
+    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="עדכון שחר">
+      <change afterPath="$PROJECT_DIR$/Shachar_Guy/login_in_order_payment_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shachar_Guy/card_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/cart_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shachar_Guy/product_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/product_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shachar_Guy/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/test_main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -244,7 +250,13 @@
       <option name="presentableId" value="LOCAL‎00015" />
       <updated>1624525611858</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL‎00016" summary="עדכון שחר">
+      <created>1624527545163</created>
+      <option name="number" value="LOCAL‎00016" />
+      <option name="presentableId" value="LOCAL‎00016" />
+      <updated>1624527545163</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

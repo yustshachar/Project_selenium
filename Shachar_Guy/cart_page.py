@@ -1,4 +1,4 @@
-class card_page:
+class cart_page:
     def __init__(self, driver):
         self.driver=driver
 
