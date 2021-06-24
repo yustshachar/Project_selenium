@@ -20,7 +20,7 @@ class test_main(TestCase):
         self.xl = load_workbook("ExcelTesting.xlsx").active
 
     def tearDown(self):
-        # self.product_page.back_to_home_page_click()
+        self.product_page.back_to_home_page_click()
         self.driver.close()
 
     def test_1(self):
@@ -55,8 +55,6 @@ class test_main(TestCase):
         self.product_page.choose_quantity(count2)
         # הכנסה לעגלה
         self.product_page.save_to_card_click()
-        # חזרה לעמוד הראשי
-        self.product_page.back_to_home_page_click()
         # בדיקה האם חיבור הכמות שווה לכמות המופיעה
         self.assertEqual(count1+count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
 
@@ -64,10 +62,10 @@ class test_main(TestCase):
         pass
 
     def test_3(self):
-        cat1 = self.xl["C2"].value
-        prod1 = self.xl["C3"].value
-        cat2 = self.xl["E2"].value
-        prod2 = self.xl["E3"].value
+        cat1 = self.xl["C13"].value
+        prod1 = self.xl["C14"].value
+        cat2 = self.xl["E13"].value
+        prod2 = self.xl["E14"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat1)
         # לחיצה לכניסה לעמוד המוצר
@@ -88,8 +86,6 @@ class test_main(TestCase):
         self.product_page.icon_x_cart_click()
         # בודק שוב את כמות הפריטים בעגלה
         after = len(self.product_page.icon_x_cart())
-        # חזרה לעמוד הראשי
-        self.product_page.back_to_home_page_click()
         # בודק שהכמות ירדה ב1
         self.assertEqual(before, after+1)
 
@@ -98,15 +94,15 @@ class test_main(TestCase):
 
     def test_5(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat1 = self.xl["C8"].value
-        prod1 = self.xl["C9"].value
-        count1 = self.xl["C10"].value
-        cat2 = self.xl["E8"].value
-        prod2 = self.xl["E9"].value
-        count2 = self.xl["E10"].value
-        cat3 = self.xl["G8"].value
-        prod3 = self.xl["G9"].value
-        count3 = self.xl["G10"].value
+        cat1 = self.xl["C22"].value
+        prod1 = self.xl["C23"].value
+        count1 = self.xl["C24"].value
+        cat2 = self.xl["E22"].value
+        prod2 = self.xl["E23"].value
+        count2 = self.xl["E24"].value
+        cat3 = self.xl["G22"].value
+        prod3 = self.xl["G23"].value
+        count3 = self.xl["G24"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat1)
         # לחיצה לכניסה לעמוד המוצר
