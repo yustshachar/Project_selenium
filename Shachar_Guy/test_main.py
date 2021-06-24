@@ -11,7 +11,8 @@ class test_main(TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome(executable_path=r"C:\Users\yusts\Desktop\שחר\בדיקות תוכנה\sel\chromedriver.exe")
         self.driver.implicitly_wait(20)
-        self.driver.get("https://www.advantageonlineshopping.com/#/")
+        self.link_web = "https://www.advantageonlineshopping.com/#/"
+        self.driver.get(self.link_web)
         self.driver.maximize_window()
         self.home_page=home_page(self.driver)
         self.category_page=category_page(self.driver)
@@ -152,7 +153,38 @@ class test_main(TestCase):
         pass
 
     def test_7(self):
+        cat = "tablets"
+        prod = 18
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod)
+        # הכנסה לעגלה
+        self.product_page.save_to_card_click()
+        # חזרה לעמוד הקודם
+        self.driver.back()
+        # בודק אם הכותרת היא טאבלט
+        self.assertEqual(self.category_page.text_title_page(), "TABLETS")
+        # חזרה לעמוד הקודם
+        self.driver.back()
+        # בודק שהכתובת הנוכחית היא הכתובת של עמוד הבית
+        self.assertEqual(self.driver.current_url, self.link_web)
+
+    def test_8(self):
         pass
+
+    def test_9(self):
+        pass
+
+    def test_10(self):
+        pass
+
+
+
+
+
+
+
 
 
 

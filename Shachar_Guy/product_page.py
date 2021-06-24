@@ -45,10 +45,11 @@ class product_page:
         self.card().click()
 
     def price_product(self):
-
         price_str = self.driver.find_element_by_css_selector("#Description>h2[class='roboto-thin screen768 ng-binding']").text[1:]
         return float(price_str.replace(",", ""))
 
+    def page_bar(self):
+        return self.driver.find_elements_by_css_selector("nav>a")
 
 
 
