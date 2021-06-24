@@ -13,3 +13,9 @@ class login_in_order_payment_page:
 
     def login_button_click(self):
         self.login_button().click()
+
+    def next_button(self):
+        return self.driver.find_element_by_id("next_btn")
+
+    def next_button_click(self):
+        self.next_button().click()

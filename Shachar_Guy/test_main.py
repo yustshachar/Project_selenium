@@ -2,11 +2,16 @@ from unittest import TestCase
 from openpyxl import *
 from selenium import webdriver
 from time import sleep
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from Shachar_Guy.home_page import home_page
 from Shachar_Guy.category_page import category_page
 from Shachar_Guy.product_page import product_page
 from Shachar_Guy.cart_page import cart_page
 from Shachar_Guy.login_in_order_payment_page import login_in_order_payment_page
+from Shachar_Guy.payment_page import payment_page
+from Shachar_Guy.my_orders_page import my_orders_page
 
 class test_main(TestCase):
     def setUp(self):
@@ -15,11 +20,14 @@ class test_main(TestCase):
         self.link_web = "https://www.advantageonlineshopping.com/#/"
         self.driver.get(self.link_web)
         self.driver.maximize_window()
+        self.wait = WebDriverWait(self.driver, 10)
         self.home_page=home_page(self.driver)
         self.category_page=category_page(self.driver)
         self.product_page=product_page(self.driver)
         self.cart_page=cart_page(self.driver)
         self.login_in_order_payment_page=login_in_order_payment_page(self.driver)
+        self.payment_page = payment_page(self.driver)
+        self.my_orders_page = my_orders_page(self.driver)
         self.xl = load_workbook("ExcelTesting.xlsx").active
 
     def tearDown(self):
@@ -176,24 +184,60 @@ class test_main(TestCase):
         pass
 
     def test_9(self):
-        username = "shachar"
-        password = "Password1"
+        username = "Test27" # חייבים משתמש שעוד לא הכניס פרטי אשראי!
+        password = "Test27"
         # למשתנים ייכנסו הנתונים מהאקסל
         cat = self.xl["C22"].value
         prod = self.xl["C23"].value
+        card_num = "123123123123"
+        cvv = "1234"  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
+        month = "06"
+        year = "2026"
+        card_name = "shachar"
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat)
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod)
         # הכנסה לעגלה
         self.product_page.save_to_cart_click()
-
+        # מעבר לעמוד צ'קאאוט
         self.product_page.checkout_popup_click()
-
+        # הכנסת שם משתמש קיים
         self.login_in_order_payment_page.username().send_keys(username)
-
-
-
+        # הכנסת סיסמא קיימת
+        self.login_in_order_payment_page.password().send_keys(password)
+        # לחיצה על התחברות
+        self.login_in_order_payment_page.login_button_click()
+        # לחיצה על הבא
+        self.login_in_order_payment_page.next_button_click()
+        # בחירת תשלום בכרטיס אשראי
+        self.payment_page.choose_credit_card()
+        # הכנסת פרטי אשראי מהמשתנים
+        self.payment_page.card_number().send_keys(card_num)
+        self.payment_page.cvv().send_keys(cvv)
+        self.payment_page.choose_mm(month)
+        self.payment_page.choose_yyyy(year)
+        self.payment_page.cardholder_name().send_keys(card_name)
+        # לחיצה על כפתור התשלום
+        self.payment_page.pay_now_button_click()
+        # self.driver.find_element_by_id("pay_now_btn_MasterCredit").click()
+        # המתנה לעמוד והכנסת מספר הזמנה למשתנה
+        self.wait.until(EC.visibility_of_element_located((By.ID, "orderNumberLabel")))
+        order_number = self.payment_page.order_number()
+        # מעבר אל עמוד עגלת הקניות
+        self.product_page.cart_click()
+        # המתנה לעמוד ובדיקה האם המילה empty קיימת שם
+        self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "[class='roboto-bold ng-scope']")))
+        self.assertIn("empty", self.payment_page.text_if_empty())
+        # לחיצה על user
+        self.payment_page.open_menu_user()
+        # המתנה שחלונית cart תיעלם ולחיצה על my orders
+        self.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "emptyCart")))
+        self.payment_page.go_to_my_orders()
+        # הכנסת מספר ההזמנה המופיע למשתנה
+        num = self.my_orders_page.order_number()
+        # בדיקה שאכן מספר ההזמנה שקיבלתי בסיום ההזמנה ומספר ההזמנה שכן שווים
+        self.assertEqual(num, order_number)
 
     def test_10(self):
         pass
