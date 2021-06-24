@@ -33,7 +33,7 @@ driver.find_element_by_name("save_to_cart").click()
 driver.find_element_by_css_selector("[id='Layer_1'][version='1.1']").click()
 
 # בחירה של קטגוריה לפטופים
-driver.find_element_by_id("laptopsImg").click()
+driver.find_element_by_id("headphonesImg").click()
 
 # כניסה לעמוד מוצר נוסף
 driver.find_element_by_id("2").click()

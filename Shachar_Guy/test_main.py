@@ -16,7 +16,7 @@ class test_main(TestCase):
         self.home_page=home_page(self.driver)
         self.category_page=category_page(self.driver)
         self.product_page=product_page(self.driver)
-        self.card_page=card_page
+        self.card_page=card_page(self.driver)
         self.xl = load_workbook("ExcelTesting.xlsx").active
 
     def tearDown(self):
@@ -98,19 +98,21 @@ class test_main(TestCase):
 
     def test_5(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat1 = "tablets" #self.xl[""].value
-        prod1 = 17 #self.xl[""].value
-        count1 = 2 #self.xl[""].value
-        cat2 = "laptops" #self.xl[""].value
-        prod2 = 2 #self.xl[""].value
-        count2 = 3 #self.xl[""].value
-        cat3 = "Headphones" #self.xl[""].value
-        prod3 = 14 #self.xl[""].value
-        count3 = 1 #self.xl[""].value
+        cat1 = self.xl["C8"].value
+        prod1 = self.xl["C9"].value
+        count1 = self.xl["C10"].value
+        cat2 = self.xl["E8"].value
+        prod2 = self.xl["E9"].value
+        count2 = self.xl["E10"].value
+        cat3 = self.xl["G8"].value
+        prod3 = self.xl["G9"].value
+        count3 = self.xl["G10"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat1)
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod1)
+        # הכנסת מחיר המוצר כפול הכמות למשתנה
+        price_p1 = self.product_page.price_product() * count1
         # בחירת כמות
         self.product_page.choose_quantity(count1)
         # הכנסה לעגלה
@@ -121,6 +123,8 @@ class test_main(TestCase):
         self.home_page.click_category(cat2)
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod2)
+        # הכנסת מחיר המוצר כפול הכמות למשתנה
+        price_p2 = self.product_page.price_product() * count2
         # בחירת כמות
         self.product_page.choose_quantity(count2)
         # הכנסה לעגלה
@@ -131,15 +135,31 @@ class test_main(TestCase):
         self.home_page.click_category(cat3)
         # לחיצה לכניסה לעמוד המוצר
         self.category_page.click_product_id(prod3)
+        # הכנסת מחיר המוצר כפול הכמות למשתנה
+        price_p3 = self.product_page.price_product() * count3
         # בחירת כמות
         self.product_page.choose_quantity(count3)
         # הכנסה לעגלה
         self.product_page.save_to_card_click()
-
+        # מעבר לעמוד עגלת הקניות
         self.product_page.card_click()
+        # בדיקה אם המחיר הסופי שווה למחירי המוצרים כפול הכמויות (עם עיגול של 2 ספרות אחרי הנקודה)
+        self.assertEqual(self.card_page.total(), round(price_p1+price_p2+price_p3,2))
+        # הדפסת עגלת הקניות
+        for i in range(3):
+            print(self.card_page.name_products()[i].text, end="\t")
+            print(self.card_page.quantity_products()[i].text, end="\t")
+            print(self.card_page.price_products()[i].text, end="\t")
+            print()
 
-        self.assertEqual(self.card_page.price_products()[0]+self.card_page.price_products()[1]+self.card_page.price_products()[2], count1+count2+count3)
-        self.product_page.price_product()
+    def test_6(self):
+        pass
+
+    def test_7(self):
+        pass
+
+
+
 
 
 
