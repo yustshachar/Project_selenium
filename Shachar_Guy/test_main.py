@@ -212,6 +212,10 @@ class test_main(TestCase):
         self.login_in_order_payment_page.next_button_click()
         # בחירת תשלום בכרטיס אשראי
         self.payment_page.choose_credit_card()
+
+
+
+        # if not self.driver.find_element_by_css_selector("[class='ng-binding ng-scope']"):
         # הכנסת פרטי אשראי מהמשתנים
         self.payment_page.card_number().send_keys(card_num)
         self.payment_page.cvv().send_keys(cvv)
@@ -220,7 +224,10 @@ class test_main(TestCase):
         self.payment_page.cardholder_name().send_keys(card_name)
         # לחיצה על כפתור התשלום
         self.payment_page.pay_now_button_click()
-        # self.driver.find_element_by_id("pay_now_btn_MasterCredit").click()
+
+        # else:
+        #     self.driver.find_element_by_id("pay_now_btn_MasterCredit").click()
+
         # המתנה לעמוד והכנסת מספר הזמנה למשתנה
         self.wait.until(EC.visibility_of_element_located((By.ID, "orderNumberLabel")))
         order_number = self.payment_page.order_number()
