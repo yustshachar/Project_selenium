@@ -1,0 +1,10 @@
+Index: shachar_gay/__init__.py
+===================================================================
+diff --git a/shachar_gay/__init__.py b/shachar_gay/__init__.py
+deleted file mode 100644
+--- a/shachar_gay/__init__.py	(revision a0543195b3a10e2e360a174c1124ec85d6bf875f)
++++ /dev/null	(revision a0543195b3a10e2e360a174c1124ec85d6bf875f)
+@@ -1,2 +0,0 @@
+-name=3
+-print(str(name))
+\ No newline at end of file
