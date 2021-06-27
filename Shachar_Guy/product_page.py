@@ -1,10 +1,33 @@
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 class product_page:
     def __init__(self, driver):
         self.driver=driver
 
+    def name(self):
+        return self.driver.find_element_by_css_selector('[class="roboto-regular screen768 ng-binding"]')
+
+    def name_text(self):
+        name_text = self.name().text
+        if len(name_text)>27:
+            return name_text[:27]+"..."
+        return name_text
+
     def color(self, name):
-        self.driver.find_element_by_css_selector(f"[title='{name}']")
-        return self.driver.find_element_by_css_selector(f"[title='{name}']")
+        return self.driver.find_element_by_css_selector(f"span[title='{name}']") # גיא: הוספתי את המילה span לפני הtitle
+
+    # def color_tryToFix(self, name):
+    #     try:
+    #         wait = WebDriverWait(self.driver, 10)
+    #         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, f"span[title='{name}']")))
+    #         element = self.driver.find_element_by_css_selector(f"span[title='{name}'][id='rabbit']")
+    #     except:
+    #         print('Error!!!')
+    #     else:
+    #         element = self.driver.find_element_by_css_selector(f"span[title='{name}'][id='bunny']")
+    #     return element
 
     def choose_color(self, name):
         self.color(name.upper()).click()
@@ -57,5 +80,47 @@ class product_page:
     def checkout_popup_click(self):
         self.checkout_popup().click()
 
+    def prices_cart_popup(self):
+        return self.driver.find_elements_by_css_selector('p[class="price roboto-regular ng-binding"]')
 
+    def prices_cart_popup_text(self):
+        prices = self.prices_cart_popup()
+        prices_text = []
+        for i in prices:
+            price = i.text[1:]
+            p = float(price.replace(",", ""))
+            prices_text.append(p)
+        return prices_text
 
+    def names_cart_popup(self):
+        return self.driver.find_elements_by_css_selector('h3[class="ng-binding"]')
+
+    def names_cart_popup_text(self):
+        names = self.names_cart_popup()
+        names_text = []
+        for i in names:
+            names_text.append(i.text)
+        return names_text
+
+    def quantities_cart_popup(self):
+        quantities = self.driver.find_elements_by_css_selector("a>label[class='ng-binding']")
+        del quantities[1::2]
+        return quantities
+
+    def quantities_cart_popup_text(self):
+        quantities = self.quantities_cart_popup()
+        quantities_text = []
+        for i in quantities:
+            quantity = i.text[5:]
+            quantities_text.append(int(quantity))
+        return quantities_text
+
+    def colors_cart_popup(self):
+        return self.driver.find_elements_by_css_selector("label>span[class='ng-binding']")
+
+    def colors_cart_popup_text(self):
+        colors = self.colors_cart_popup()
+        colors_text = []
+        for i in colors:
+            colors_text.append(i.text)
+        return colors_text

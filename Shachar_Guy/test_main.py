@@ -19,6 +19,8 @@ class test_main(TestCase):
         self.driver.implicitly_wait(20)
         self.link_web = "https://www.advantageonlineshopping.com/#/"
         self.driver.get(self.link_web)
+        self.driver.refresh()
+        self.driver.refresh()
         self.driver.maximize_window()
         self.wait = WebDriverWait(self.driver, 10)
         self.home_page=home_page(self.driver)
@@ -70,9 +72,86 @@ class test_main(TestCase):
         self.assertEqual(count1+count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
 
     def test_2(self):
-        pass
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat1 = "speakers"
+        prod1 = "20"
+        color1 = "GRAY"
+        quantity1 = 5
+        cat2 = "tablets"
+        prod2 = "17"
+        color2 = "BLACK"
+        quantity2 = 8
+        cat3 = "headphones"
+        prod3 = "14"
+        color3 = "TURQUOISE"
+        quantity3 = 6
+
+        # מוצר ראשון
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat1)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod1)
+        # בחירת צבע
+        self.product_page.choose_color(color1)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity1)
+        # אחסון השם
+        name1 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price1 = round(quantity1 * self.product_page.price_product(),2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # חזרה לעמוד הראשי
+        self.product_page.back_to_home_page_click()
+
+        # מוצר שני
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat2)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod2)
+        # בחירת צבע
+        self.product_page.choose_color(color2)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity2)
+        # אחסון השם
+        name2 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price2 = round(quantity2 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # חזרה לעמוד הראשי
+        self.product_page.back_to_home_page_click()
+
+        # מוצר שלישי
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat3)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod3)
+        # בחירת צבע
+        self.product_page.choose_color(color3)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity3)
+        # אחסון השם
+        name3 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price3 = round(quantity3 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # בודק בהתאמה בחלונית עגלת הקניות את השם, צבע, כמות ומחיר של המוצרים שהתווספו
+        # שם
+        self.assertEqual([name3,name2,name1],self.product_page.names_cart_popup_text())
+        # צבע
+        self.assertEqual([color3,color2,color1],self.product_page.colors_cart_popup_text())
+        # כמות
+        self.assertEqual([quantity3,quantity2,quantity1],self.product_page.quantities_cart_popup_text())
+        #מחיר
+        self.assertEqual([price3,price2,price1],self.product_page.prices_cart_popup_text())
 
     def test_3(self):
+        # למשתנים ייכנסו הנתונים מהאקסל
         cat1 = self.xl["C13"].value
         prod1 = self.xl["C14"].value
         cat2 = self.xl["E13"].value
@@ -101,7 +180,79 @@ class test_main(TestCase):
         self.assertEqual(before, after+1)
 
     def test_4(self):
-        pass
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat1 = "speakers"
+        prod1 = "20"
+        color1 = "GRAY"
+        quantity1 = 5
+        cat2 = "tablets"
+        prod2 = "17"
+        color2 = "BLACK"
+        quantity2 = 8
+        cat3 = "headphones"
+        prod3 = "14"
+        color3 = "TURQUOISE"
+        quantity3 = 6
+
+        # מוצר ראשון
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat1)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod1)
+        # בחירת צבע
+        self.product_page.choose_color(color1)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity1)
+        # אחסון השם
+        name1 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price1 = round(quantity1 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # חזרה לעמוד הראשי
+        self.product_page.back_to_home_page_click()
+
+        # מוצר שני
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat2)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod2)
+        # בחירת צבע
+        self.product_page.choose_color(color2)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity2)
+        # אחסון השם
+        name2 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price2 = round(quantity2 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # חזרה לעמוד הראשי
+        self.product_page.back_to_home_page_click()
+
+        # מוצר שלישי
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat3)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod3)
+        # בחירת צבע
+        self.product_page.choose_color(color3)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity3)
+        # אחסון השם
+        name3 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price3 = round(quantity3 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # מעבר לעמוד עגלת הקניות
+        self.product_page.cart_click()
+
+        # בדיקת הופעת הטקסט Shopping Cart למעלה משמאל
+        self.assertIn("SHOPPING CART",self.cart_page.nav_current_location().text)
 
     def test_5(self):
         # למשתנים ייכנסו הנתונים מהאקסל
@@ -160,7 +311,78 @@ class test_main(TestCase):
             print()
 
     def test_6(self):
-        pass
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat1 = "speakers"
+        prod1 = "20"
+        color1 = "GRAY"
+        quantity1 = 5
+        cat2 = "tablets"
+        prod2 = "17"
+        color2 = "BLACK"
+        quantity2 = 8
+        cat3 = "headphones"
+        prod3 = "14"
+        color3 = "TURQUOISE"
+        quantity3 = 6
+
+        # מוצר ראשון
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat1)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod1)
+        # בחירת צבע
+        self.product_page.choose_color(color1)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity1)
+        # אחסון השם
+        name1 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price1 = round(quantity1 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # חזרה לעמוד הראשי
+        self.product_page.back_to_home_page_click()
+
+        # מוצר שני
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat2)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod2)
+        # בחירת צבע
+        self.product_page.choose_color(color2)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity2)
+        # אחסון השם
+        name2 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price2 = round(quantity2 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # חזרה לעמוד הראשי
+        self.product_page.back_to_home_page_click()
+
+        # מוצר שלישי
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat3)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod3)
+        # בחירת צבע
+        self.product_page.choose_color(color3)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity3)
+        # אחסון השם
+        name3 = self.product_page.name_text()
+        # אחסון מחיר, אחרי הכפלה בכמות
+        price3 = round(quantity3 * self.product_page.price_product(), 2)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+
+        # מעבר לעמוד עגלת הקניות
+        self.product_page.cart_click()
+
+
 
     def test_7(self):
         cat = "tablets"
@@ -247,18 +469,17 @@ class test_main(TestCase):
         self.assertEqual(num, order_number)
 
     def test_10(self):
-        pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # למשתנים ייכנסו הנתונים מהאקסל
+        username = "guy586"
+        password = "Ab123456789"
+        # לחיצה על אייקון הuser מצד ימין למעלה באתר
+        self.home_page.nav_userIcon_click()
+        # מילוי שדה username
+        self.home_page.fill_username_field(username)
+        # מילוי שדה password
+        self.home_page.fill_password_field(password)
+        # לחיצה על כפתור SIGN IN
+        self.home_page.click_signIn_button()
+        # בדיקה שהחיבור הצליח
+        # self.assertEqual(username,self.home_page.user_miniTitle_text())
+        print(self.home_page.user_miniTitle_text())
