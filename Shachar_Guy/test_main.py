@@ -388,7 +388,7 @@ class test_main(TestCase):
         cat = self.xl["C47"].value
         prod = self.xl["C48"].value
         color = self.xl["C49"].value
-        quantity = self.xl["50"].value
+        quantity = self.xl["C50"].value
         username = self.xl["E47"].value
         email = self.xl["E48"].value
         password = self.xl["E49"].value
