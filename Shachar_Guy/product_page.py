@@ -1,7 +1,3 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
 class product_page:
     def __init__(self, driver):
         self.driver=driver
@@ -16,28 +12,13 @@ class product_page:
         return name_text
 
     def color(self, name):
-        return self.driver.find_element_by_css_selector(f"span[title='{name}']") # גיא: הוספתי את המילה span לפני הtitle
-
-    # def color_tryToFix(self, name):
-    #     try:
-    #         wait = WebDriverWait(self.driver, 10)
-    #         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, f"span[title='{name}']")))
-    #         element = self.driver.find_element_by_css_selector(f"span[title='{name}'][id='rabbit']")
-    #     except:
-    #         print('Error!!!')
-    #     else:
-    #         element = self.driver.find_element_by_css_selector(f"span[title='{name}'][id='bunny']")
-    #     return element
+        return self.driver.find_element_by_css_selector(f"[class='']>[title='{name}']")
 
     def choose_color(self, name):
         self.color(name.upper()).click()
 
     def quantity(self):
         return self.driver.find_element_by_name("quantity")
-
-    # def choose_quantity1111(self, num):
-    #     self.quantity().clear()
-    #     self.quantity().send_keys(f"{num}")
 
     def save_to_cart(self):
         return self.driver.find_element_by_name("save_to_cart")
