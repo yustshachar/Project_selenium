@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="עדכון גיא">
+    <list default="true" id="06d9bb4c-59bb-48e2-99ff-572cf54a5743" name="Default Changelist" comment="עדכון שחר">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shachar_Guy/ExcelTesting.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/ExcelTesting.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shachar_Guy/product_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/product_page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shachar_Guy/my_orders_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/my_orders_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shachar_Guy/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/test_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +41,7 @@
       <recent name="C:\Users\yusts\PycharmProjects\Project_selenium" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests for test_main.test_main.test_6">
+  <component name="RunManager" selected="Python tests.Unittests for test_main.test_main.test_9">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Project_selenium" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,10 +135,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Unittests for test_main.test_main.test_9" />
         <item itemvalue="Python tests.Unittests for test_main.test_main.test_6" />
         <item itemvalue="Python tests.Unittests for test_main.test_main.test_4" />
         <item itemvalue="Python tests.Unittests for test_main.test_main.test_2" />
-        <item itemvalue="Python tests.Unittests for test_main.test_main.test_9" />
         <item itemvalue="Python tests.Unittests for test_main.test_main.test_5" />
       </list>
     </recent_temporary>
@@ -273,7 +273,13 @@
       <option name="project" value="LOCAL" />
       <updated>1624867961697</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL‎00021" summary="עדכון שחר">
+      <created>1624872818576</created>
+      <option name="number" value="LOCAL‎00021" />
+      <option name="presentableId" value="LOCAL‎00021" />
+      <updated>1624872818576</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -292,9 +298,9 @@
     <MESSAGE value="check" />
     <MESSAGE value="check2" />
     <MESSAGE value="עדכון תקייה" />
-    <MESSAGE value="עדכון שחר" />
     <MESSAGE value="עדכון גיא" />
-    <option name="LAST_COMMIT_MESSAGE" value="עדכון גיא" />
+    <MESSAGE value="עדכון שחר" />
+    <option name="LAST_COMMIT_MESSAGE" value="עדכון שחר" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

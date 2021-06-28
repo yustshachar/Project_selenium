@@ -35,16 +35,17 @@ class test_main(TestCase):
         self.xl = self.wb.active
 
     def test_1(self):
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat1 = self.xl["C2"].value
+        prod1 = self.xl["C3"].value
+        color1 = self.xl["C4"].value
+        count1 = self.xl["C5"].value
+        cat2 = self.xl["E2"].value
+        prod2 = self.xl["E3"].value
+        color2 = self.xl["E4"].value
+        count2 = self.xl["E5"].value
+
         try:
-            # למשתנים ייכנסו הנתונים מהאקסל
-            cat1 = self.xl["C2"].value
-            prod1 = self.xl["C3"].value
-            color1 = self.xl["C4"].value
-            count1= self.xl["C5"].value
-            cat2 = self.xl["E2"].value
-            prod2=self.xl["E3"].value
-            color2 = self.xl["E4"].value
-            count2= self.xl["E5"].value
             # לחיצה לכניסה לעמוד הקטגוריה
             self.home_page.click_category(cat1)
             # לחיצה לכניסה לעמוד המוצר
@@ -69,7 +70,8 @@ class test_main(TestCase):
             self.product_page.save_to_cart_click()
             # בדיקה האם חיבור הכמות שווה לכמות המופיעה
             self.assertEqual(count1 + count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
-            self.xl["A6"] = "V" #בדיקה
+
+            self.xl["A6"] = "V"
         except:
             self.xl["A6"] = "X"
 
@@ -88,77 +90,83 @@ class test_main(TestCase):
         color3 = self.xl["G11"].value
         quantity3 = self.xl["G12"].value
 
-        # מוצר ראשון
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat1)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod1)
-        # בחירת צבע
-        self.product_page.choose_color(color1)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity1)
-        # אחסון השם
-        name1 = self.product_page.name_text()
-        # אחסון מחיר, אחרי הכפלה בכמות
-        price1 = round(quantity1 * self.product_page.price_product(),2)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
+        try:
+            # מוצר ראשון
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat1)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod1)
+            # בחירת צבע
+            self.product_page.choose_color(color1)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity1)
+            # אחסון השם
+            name1 = self.product_page.name_text()
+            # אחסון מחיר, אחרי הכפלה בכמות
+            price1 = round(quantity1 * self.product_page.price_product(),2)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
 
-        # חזרה לעמוד הראשי
-        self.product_page.back_to_home_page_click()
+            # חזרה לעמוד הראשי
+            self.product_page.back_to_home_page_click()
 
-        # מוצר שני
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat2)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod2)
-        # בחירת צבע
-        self.product_page.choose_color(color2)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity2)
-        # אחסון השם
-        name2 = self.product_page.name_text()
-        # אחסון מחיר, אחרי הכפלה בכמות
-        price2 = round(quantity2 * self.product_page.price_product(), 2)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
+            # מוצר שני
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat2)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod2)
+            # בחירת צבע
+            self.product_page.choose_color(color2)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity2)
+            # אחסון השם
+            name2 = self.product_page.name_text()
+            # אחסון מחיר, אחרי הכפלה בכמות
+            price2 = round(quantity2 * self.product_page.price_product(), 2)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
 
-        # חזרה לעמוד הראשי
-        self.product_page.back_to_home_page_click()
+            # חזרה לעמוד הראשי
+            self.product_page.back_to_home_page_click()
 
-        # מוצר שלישי
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat3)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod3)
-        # בחירת צבע
-        self.product_page.choose_color(color3)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity3)
-        # אחסון השם
-        name3 = self.product_page.name_text()
-        # אחסון מחיר, אחרי הכפלה בכמות
-        price3 = round(quantity3 * self.product_page.price_product(), 2)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
+            # מוצר שלישי
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat3)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod3)
+            # בחירת צבע
+            self.product_page.choose_color(color3)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity3)
+            # אחסון השם
+            name3 = self.product_page.name_text()
+            # אחסון מחיר, אחרי הכפלה בכמות
+            price3 = round(quantity3 * self.product_page.price_product(), 2)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
 
-        # בודק בהתאמה בחלונית עגלת הקניות את השם, צבע, כמות ומחיר של המוצרים שהתווספו
-        # שם
-        self.assertEqual([name3,name2,name1],self.product_page.names_cart_popup_text())
-        # צבע
-        self.assertEqual([color3.upper(),color2.upper(),color1.upper()],self.product_page.colors_cart_popup_text())
-        # כמות
-        self.assertEqual([quantity3,quantity2,quantity1],self.product_page.quantities_cart_popup_text())
-        #מחיר
-        self.assertEqual([price3,price2,price1],self.product_page.prices_cart_popup_text())
+            # בודק בהתאמה בחלונית עגלת הקניות את השם, צבע, כמות ומחיר של המוצרים שהתווספו
+            # שם
+            self.assertEqual([name3,name2,name1],self.product_page.names_cart_popup_text())
+            # צבע
+            self.assertEqual([color3.upper(),color2.upper(),color1.upper()],self.product_page.colors_cart_popup_text())
+            # כמות
+            self.assertEqual([quantity3,quantity2,quantity1],self.product_page.quantities_cart_popup_text())
+            #מחיר
+            self.assertEqual([price3,price2,price1],self.product_page.prices_cart_popup_text())
+
+            self.xl["A13"] = "V"
+        except:
+            self.xl["A13"] = "V"
 
     def test_3(self):
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat1 = self.xl["C16"].value
+        prod1 = self.xl["C17"].value
+        cat2 = self.xl["E16"].value
+        prod2 = self.xl["E17"].value
+
         try:
-            # למשתנים ייכנסו הנתונים מהאקסל
-            cat1 = self.xl["C16"].value
-            prod1 = self.xl["C17"].value
-            cat2 = self.xl["E16"].value
-            prod2 = self.xl["E17"].value
             # לחיצה לכניסה לעמוד הקטגוריה
             self.home_page.click_category(cat1)
             # לחיצה לכניסה לעמוד המוצר
@@ -181,46 +189,53 @@ class test_main(TestCase):
             after = len(self.product_page.icon_x_cart())
             # בודק שהכמות ירדה ב1
             self.assertEqual(before, after+1)
+
             self.xl["A18"] = "V"
         except:
             self.xl["A18"] = "X"
 
     def test_4(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat = self.xl["C16"].value
-        prod = self.xl["C16"].value
-        color = self.xl["C16"].value
-        quantity = self.xl["C16"].value
+        cat = self.xl["C21"].value
+        prod = self.xl["C22"].value
+        color = self.xl["C23"].value
+        quantity = self.xl["C24"].value
 
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod)
-        # בחירת צבע
-        self.product_page.choose_color(color)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
+        try:
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod)
+            # בחירת צבע
+            self.product_page.choose_color(color)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
 
-        # מעבר לעמוד עגלת הקניות
-        self.product_page.cart_click()
+            # מעבר לעמוד עגלת הקניות
+            self.product_page.cart_click()
 
-        # בדיקת הופעת הטקסט Shopping Cart למעלה משמאל
-        self.assertIn("SHOPPING CART",self.cart_page.nav_current_location().text)
+            # בדיקת הופעת הטקסט Shopping Cart למעלה משמאל
+            self.assertIn("SHOPPING CART",self.cart_page.nav_current_location().text)
+
+            self.xl["A25"] = "V"
+        except:
+            self.xl["A25"] = "X"
 
     def test_5(self):
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat1 = self.xl["C28"].value
+        prod1 = self.xl["C29"].value
+        count1 = self.xl["C30"].value
+        cat2 = self.xl["E28"].value
+        prod2 = self.xl["E29"].value
+        count2 = self.xl["E30"].value
+        cat3 = self.xl["G28"].value
+        prod3 = self.xl["G29"].value
+        count3 = self.xl["G30"].value
+
         try:
-            # למשתנים ייכנסו הנתונים מהאקסל
-            cat1 = self.xl["C26"].value
-            prod1 = self.xl["C27"].value
-            count1 = self.xl["C28"].value
-            cat2 = self.xl["E26"].value
-            prod2 = self.xl["E27"].value
-            count2 = self.xl["E28"].value
-            cat3 = self.xl["G26"].value
-            prod3 = self.xl["G27"].value
-            count3 = self.xl["G28"].value
             # לחיצה לכניסה לעמוד הקטגוריה
             self.home_page.click_category(cat1)
             # לחיצה לכניסה לעמוד המוצר
@@ -267,80 +282,87 @@ class test_main(TestCase):
                 print(self.cart_page.price_products()[i].text, end="\t")
                 print()
 
-            self.xl["A29"] = "passed"
+            self.xl["A31"] = "V"
         except:
-            self.xl["A29"] = "fails"
+            self.xl["A31"] = "X"
 
 
 
     def test_6(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat1 = "speakers"
-        prod1 = "20"
-        color1 = "GRAY"
-        quantity1 = 5
-        new_quantity1 = 9
-        cat2 = "tablets"
-        prod2 = "17"
-        color2 = "BLACK"
-        quantity2 = 8
-        new_quantity2 = 6
-        # מוצר ראשון
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat1)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod1)
-        # בחירת צבע
-        self.product_page.choose_color(color1)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity1)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
+        cat1 = self.xl["C34"].value
+        prod1 = self.xl["C35"].value
+        color1 = self.xl["C36"].value
+        quantity1 = self.xl["C37"].value
+        new_quantity1 = self.xl["C38"].value
+        cat2 = self.xl["E34"].value
+        prod2 = self.xl["E35"].value
+        color2 = self.xl["E36"].value
+        quantity2 = self.xl["E37"].value
+        new_quantity2 = self.xl["E38"].value
 
-        # חזרה לעמוד הראשי
-        self.product_page.back_to_home_page_click()
+        try:
+            # מוצר ראשון
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat1)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod1)
+            # בחירת צבע
+            self.product_page.choose_color(color1)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity1)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
 
-        # מוצר שני
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat2)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod2)
-        # בחירת צבע
-        self.product_page.choose_color(color2)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity2)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
+            # חזרה לעמוד הראשי
+            self.product_page.back_to_home_page_click()
 
-        # מעבר לעמוד עגלת הקניות
-        self.product_page.cart_click()
+            # מוצר שני
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat2)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod2)
+            # בחירת צבע
+            self.product_page.choose_color(color2)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity2)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
 
-        # מוצר 2 - הראשון בטבלת עגלת הקניות
-        # לחיצה על edit מוצר 2
-        self.cart_page.edit_products()[0].click()
-        # הורדת הכמות ב2
-        self.product_page.change_quantity(new_quantity1)
-        # שמירה בעגלה ומעבר לעמוד עגלת הקניות
-        self.product_page.save_to_cart_click()
+            # מעבר לעמוד עגלת הקניות
+            self.product_page.cart_click()
 
-        # בדיקת הכמות החדשה - מוצר 2
-        self.assertEqual(str(new_quantity1),self.cart_page.quantity_products()[0].text)
+            # מוצר 2 - הראשון בטבלת עגלת הקניות
+            # לחיצה על edit מוצר 2
+            self.cart_page.edit_products()[0].click()
+            # הורדת הכמות ב2
+            self.product_page.change_quantity(new_quantity1)
+            # שמירה בעגלה ומעבר לעמוד עגלת הקניות
+            self.product_page.save_to_cart_click()
 
-        # מוצר 1 - השני בטבלת עגלת הקניות
-        # לחיצה על edit מוצר 1
-        self.cart_page.edit_products()[1].click()
-        # הורדת הכמות ב2
-        self.product_page.change_quantity(new_quantity2)
-        # שמירה בעגלה ומעבר לעמוד עגלת הקניות
-        self.product_page.save_to_cart_click()
+            # בדיקת הכמות החדשה - מוצר 2
+            self.assertEqual(str(new_quantity1),self.cart_page.quantity_products()[0].text)
 
-        # בדיקת הכמות החדשה - מוצר 1
-        self.assertEqual(str(new_quantity2), self.cart_page.quantity_products()[1].text)
+            # מוצר 1 - השני בטבלת עגלת הקניות
+            # לחיצה על edit מוצר 1
+            self.cart_page.edit_products()[1].click()
+            # הורדת הכמות ב2
+            self.product_page.change_quantity(new_quantity2)
+            # שמירה בעגלה ומעבר לעמוד עגלת הקניות
+            self.product_page.save_to_cart_click()
+
+            # בדיקת הכמות החדשה - מוצר 1
+            self.assertEqual(str(new_quantity2), self.cart_page.quantity_products()[1].text)
+
+            self.xl["A39"] = "V"
+        except:
+            self.xl["A39"] = "X"
 
     def test_7(self):
+        cat = self.xl["C42"].value
+        prod = self.xl["C43"].value
+
         try:
-            cat = self.xl["C39"].value
-            prod = self.xl["C40"].value
             # לחיצה לכניסה לעמוד הקטגוריה
             self.home_page.click_category(cat)
             # לחיצה לכניסה לעמוד המוצר
@@ -355,25 +377,27 @@ class test_main(TestCase):
             self.driver.back()
             # בודק שהכתובת הנוכחית שווה להכתובת של עמוד הבית
             self.assertEqual(self.driver.current_url, self.link_web)
-            self.xl["A41"] = "passed"
+
+            self.xl["A44"] = "V"
         except:
-            self.xl["A41"] = "fails"
+            self.xl["A44"] = "X"
 
     def test_8(self):
         pass
 
     def test_9(self):
+        # למשתנים ייכנסו הנתונים מהאקסל
+        username = self.xl["E53"].value # חייבים משתמש שעוד לא הכניס פרטי אשראי!
+        password = self.xl["E54"].value
+        cat = self.xl["C53"].value
+        prod = self.xl["C54"].value
+        card_num = self.xl["G53"].value
+        cvv = self.xl["G54"].value  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
+        month = self.xl["G55"].value
+        year = self.xl["G56"].value
+        card_name = self.xl["G57"].value
+
         try:
-            username = self.xl["E50"].value # חייבים משתמש שעוד לא הכניס פרטי אשראי!
-            password = self.xl["E51"].value
-            # למשתנים ייכנסו הנתונים מהאקסל
-            cat = self.xl["C50"].value
-            prod = self.xl["C51"].value
-            card_num = self.xl["G50"].value
-            cvv = self.xl["G51"].value  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
-            month = self.xl["G52"].value
-            year = self.xl["G53"].value
-            card_name = self.xl["G54"].value
             # לחיצה לכניסה לעמוד הקטגוריה
             self.home_page.click_category(cat)
             # לחיצה לכניסה לעמוד המוצר
@@ -418,37 +442,42 @@ class test_main(TestCase):
             # הכנסת מספר ההזמנה המופיע למשתנה
             order_num = self.my_orders_page.order_number()
             # בדיקה שאכן מספר ההזמנה שקיבלתי בסיום ההזמנה ומספר ההזמנה שכן שווים
-            self.assertIn(number, order_num)
-            self.xl["A53"] = "passed"
+            self.assertEqual(number, order_num)
+
+            self.xl["A56"] = "V"
         except:
-            self.xl["A53"] = "fails"
+            self.xl["A56"] = "X"
 
     def test_10(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        username = "guy586"
-        password = "Ab123456789"
+        username = self.xl["C60"].value
+        password = self.xl["C61"].value
+        try:
+            # התחברות
+            # לחיצה על אייקון הuser מצד ימין למעלה באתר
+            self.home_page.nav_userIcon_click()
+            # מילוי שדה username
+            self.home_page.fill_username_field(username)
+            # מילוי שדה password
+            self.home_page.fill_password_field(password)
+            # לחיצה על כפתור SIGN IN
+            self.home_page.click_signIn_button()
+            # בדיקה שהחיבור הצליח
+            self.assertEqual(username,self.home_page.user_miniTitle_text_login())
+            self.assertTrue(self.home_page.user_miniTitle().is_displayed())
 
-        # התחברות
-        # לחיצה על אייקון הuser מצד ימין למעלה באתר
-        self.home_page.nav_userIcon_click()
-        # מילוי שדה username
-        self.home_page.fill_username_field(username)
-        # מילוי שדה password
-        self.home_page.fill_password_field(password)
-        # לחיצה על כפתור SIGN IN
-        self.home_page.click_signIn_button()
-        # בדיקה שהחיבור הצליח
-        self.assertEqual(username,self.home_page.user_miniTitle_text_login())
-        self.assertTrue(self.home_page.user_miniTitle().is_displayed())
+            # התנתקות
+            # לחיצה על אייקון הuser מצד ימין למעלה באתר
+            self.home_page.nav_userIcon_click()
+            # לחיצה על כפתור Sign out
+            self.home_page.click_signOut_button()
+            # בדיקה שההתנתקות הצליחה
+            self.assertEqual("",self.home_page.user_miniTitle_text_logout())
+            self.assertFalse(self.home_page.user_miniTitle().is_displayed())
 
-        # התנתקות
-        # לחיצה על אייקון הuser מצד ימין למעלה באתר
-        self.home_page.nav_userIcon_click()
-        # לחיצה על כפתור Sign out
-        self.home_page.click_signOut_button()
-        # בדיקה שההתנתקות הצליחה
-        self.assertEqual("",self.home_page.user_miniTitle_text_logout())
-        self.assertFalse(self.home_page.user_miniTitle().is_displayed())
+            self.xl["A62"] = "V"
+        except:
+            self.xl["A62"] = "X"
 
     def tearDown(self):
         self.wb.save("ExcelTesting.xlsx")
