@@ -69,9 +69,9 @@ class test_main(TestCase):
             self.product_page.save_to_cart_click()
             # בדיקה האם חיבור הכמות שווה לכמות המופיעה
             self.assertEqual(count1 + count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
-            self.xl["A6"] = "passed"
+            self.xl["A6"] = "V"
         except:
-            self.xl["A6"] = "fails"
+            self.xl["A6"] = "X"
 
     def test_2(self):
         # למשתנים ייכנסו הנתונים מהאקסל
@@ -181,9 +181,9 @@ class test_main(TestCase):
             after = len(self.product_page.icon_x_cart())
             # בודק שהכמות ירדה ב1
             self.assertEqual(before, after+1)
-            self.xl["A18"] = "passed"
+            self.xl["A18"] = "V"
         except:
-            self.xl["A18"] = "fails"
+            self.xl["A18"] = "X"
 
     def test_4(self):
         # למשתנים ייכנסו הנתונים מהאקסל
@@ -404,7 +404,7 @@ class test_main(TestCase):
             # self.driver.find_element_by_id("pay_now_btn_MasterCredit").click()
             # המתנה לעמוד והכנסת מספר הזמנה למשתנה
             self.wait.until(EC.visibility_of_element_located((By.ID, "orderNumberLabel")))
-            order_number = self.payment_page.order_number()
+            number = self.payment_page.order_number()
             # מעבר אל עמוד עגלת הקניות
             self.product_page.cart_click()
             # המתנה לעמוד ובדיקה האם המילה empty קיימת שם
@@ -416,9 +416,9 @@ class test_main(TestCase):
             self.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "emptyCart")))
             self.payment_page.go_to_my_orders()
             # הכנסת מספר ההזמנה המופיע למשתנה
-            num = self.my_orders_page.order_number()
+            order_num = self.my_orders_page.order_number()
             # בדיקה שאכן מספר ההזמנה שקיבלתי בסיום ההזמנה ומספר ההזמנה שכן שווים
-            self.assertEqual(num, order_number)
+            self.assertIn(number, order_num)
             self.xl["A53"] = "passed"
         except:
             self.xl["A53"] = "fails"

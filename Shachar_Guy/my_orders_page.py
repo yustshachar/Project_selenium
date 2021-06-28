@@ -3,4 +3,4 @@ class my_orders_page:
         self.driver = driver
 
     def order_number(self):
-        return self.driver.find_element_by_css_selector("td:nth-child(1) > label").text
+        return self.driver.find_elements_by_css_selector("[rowspan='1']>[class='ng-binding']")

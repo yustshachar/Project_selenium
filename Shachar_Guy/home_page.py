@@ -10,7 +10,7 @@ class home_page:
         return self.driver.find_element_by_id(f"{name}Img")
 
     def click_category(self, name):
-        self.category(name).click()
+        self.category(name.lower()).click()
 
     def user_miniTitle(self):
         return self.driver.find_element_by_css_selector(".containMiniTitle")
