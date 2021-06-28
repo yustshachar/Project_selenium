@@ -30,11 +30,8 @@ class test_main(TestCase):
         self.login_in_order_payment_page=login_in_order_payment_page(self.driver)
         self.payment_page = payment_page(self.driver)
         self.my_orders_page = my_orders_page(self.driver)
-        self.xl = load_workbook("ExcelTesting.xlsx").active
-
-    def tearDown(self):
-        self.product_page.back_to_home_page_click()
-        self.driver.close()
+        self.wb = load_workbook("ExcelTesting.xlsx")
+        self.xl = self.wb.active
 
     def test_1(self):
         # למשתנים ייכנסו הנתונים מהאקסל
@@ -69,22 +66,26 @@ class test_main(TestCase):
         # הכנסה לעגלה
         self.product_page.save_to_cart_click()
         # בדיקה האם חיבור הכמות שווה לכמות המופיעה
-        self.assertEqual(count1+count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
+        # self.assertEqual(count1 + count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
+        if count1 + count2 == int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text):
+            self.xl["A6"] = "passed"
+        else:
+            self.xl["A6"] = "fails"
 
     def test_2(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat1 = "speakers"
-        prod1 = "20"
-        color1 = "GRAY"
-        quantity1 = 5
-        cat2 = "tablets"
-        prod2 = "17"
-        color2 = "BLACK"
-        quantity2 = 8
-        cat3 = "headphones"
-        prod3 = "14"
-        color3 = "TURQUOISE"
-        quantity3 = 6
+        cat1 = self.xl["C9"].value
+        prod1 = self.xl["C10"].value
+        color1 = self.xl["C11"].value
+        quantity1 = self.xl["C12"].value
+        cat2 = self.xl["E9"].value
+        prod2 = self.xl["E10"].value
+        color2 = self.xl["E11"].value
+        quantity2 = self.xl["E12"].value
+        cat3 = self.xl["G9"].value
+        prod3 = self.xl["G10"].value
+        color3 = self.xl["G11"].value
+        quantity3 = self.xl["G12"].value
 
         # מוצר ראשון
         # לחיצה לכניסה לעמוד הקטגוריה
@@ -152,10 +153,10 @@ class test_main(TestCase):
 
     def test_3(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat1 = self.xl["C13"].value
-        prod1 = self.xl["C14"].value
-        cat2 = self.xl["E13"].value
-        prod2 = self.xl["E14"].value
+        cat1 = self.xl["C16"].value
+        prod1 = self.xl["C17"].value
+        cat2 = self.xl["E16"].value
+        prod2 = self.xl["E17"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat1)
         # לחיצה לכניסה לעמוד המוצר
@@ -177,7 +178,11 @@ class test_main(TestCase):
         # בודק שוב את כמות הפריטים בעגלה
         after = len(self.product_page.icon_x_cart())
         # בודק שהכמות ירדה ב1
-        self.assertEqual(before, after+1)
+        # self.assertEqual(before, after+1)
+        if before == after+1:
+            self.xl["A18"] = "passed"
+        else:
+            self.xl["A18"] = "fails"
 
     def test_4(self):
         # למשתנים ייכנסו הנתונים מהאקסל
@@ -256,15 +261,15 @@ class test_main(TestCase):
 
     def test_5(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat1 = self.xl["C22"].value
-        prod1 = self.xl["C23"].value
-        count1 = self.xl["C24"].value
-        cat2 = self.xl["E22"].value
-        prod2 = self.xl["E23"].value
-        count2 = self.xl["E24"].value
-        cat3 = self.xl["G22"].value
-        prod3 = self.xl["G23"].value
-        count3 = self.xl["G24"].value
+        cat1 = self.xl["C26"].value
+        prod1 = self.xl["C27"].value
+        count1 = self.xl["C28"].value
+        cat2 = self.xl["E26"].value
+        prod2 = self.xl["E27"].value
+        count2 = self.xl["E28"].value
+        cat3 = self.xl["G26"].value
+        prod3 = self.xl["G27"].value
+        count3 = self.xl["G28"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat1)
         # לחיצה לכניסה לעמוד המוצר
@@ -302,7 +307,12 @@ class test_main(TestCase):
         # מעבר לעמוד עגלת הקניות
         self.product_page.cart_click()
         # בדיקה אם המחיר הסופי שווה למחירי המוצרים כפול הכמויות (עם עיגול של 2 ספרות אחרי הנקודה)
-        self.assertEqual(self.cart_page.total(), round(price_p1+price_p2+price_p3,2))
+        # self.assertEqual(self.cart_page.total(), round(price_p1+price_p2+price_p3,2))
+        if self.cart_page.total() == round(price_p1+price_p2+price_p3,2):
+            self.xl["A29"] = "passed"
+        else:
+            self.xl["A29"] = "fails"
+
         # הדפסת עגלת הקניות
         for i in range(3):
             print(self.cart_page.name_products()[i].text, end="\t")
@@ -385,8 +395,8 @@ class test_main(TestCase):
 
 
     def test_7(self):
-        cat = "tablets"
-        prod = 18
+        cat = self.xl["C39"].value
+        prod = self.xl["C40"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat)
         # לחיצה לכניסה לעמוד המוצר
@@ -400,22 +410,26 @@ class test_main(TestCase):
         # חזרה לעמוד הקודם
         self.driver.back()
         # בודק שהכתובת הנוכחית שווה להכתובת של עמוד הבית
-        self.assertEqual(self.driver.current_url, self.link_web)
+        # self.assertEqual(self.driver.current_url, self.link_web)
+        if self.driver.current_url == self.link_web:
+            self.xl["A41"] = "passed"
+        else:
+            self.xl["A41"] = "fails"
 
     def test_8(self):
         pass
 
     def test_9(self):
-        username = "Test27" # חייבים משתמש שעוד לא הכניס פרטי אשראי!
-        password = "Test27"
+        username = self.xl["E50"].value # חייבים משתמש שעוד לא הכניס פרטי אשראי!
+        password = self.xl["E51"].value
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat = self.xl["C22"].value
-        prod = self.xl["C23"].value
-        card_num = "123123123123"
-        cvv = "1234"  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
-        month = "06"
-        year = "2026"
-        card_name = "shachar"
+        cat = self.xl["C50"].value
+        prod = self.xl["C51"].value
+        card_num = self.xl["G50"].value
+        cvv = self.xl["G51"].value  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
+        month = self.xl["G52"].value
+        year = self.xl["G53"].value
+        card_name = self.xl["G54"].value
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat)
         # לחיצה לכניסה לעמוד המוצר
@@ -434,10 +448,6 @@ class test_main(TestCase):
         self.login_in_order_payment_page.next_button_click()
         # בחירת תשלום בכרטיס אשראי
         self.payment_page.choose_credit_card()
-
-
-
-        # if not self.driver.find_element_by_css_selector("[class='ng-binding ng-scope']"):
         # הכנסת פרטי אשראי מהמשתנים
         self.payment_page.card_number().send_keys(card_num)
         self.payment_page.cvv().send_keys(cvv)
@@ -446,10 +456,8 @@ class test_main(TestCase):
         self.payment_page.cardholder_name().send_keys(card_name)
         # לחיצה על כפתור התשלום
         self.payment_page.pay_now_button_click()
-
-        # else:
-        #     self.driver.find_element_by_id("pay_now_btn_MasterCredit").click()
-
+        # במידה ופרטי האשראי כבר שמורים למשתמש
+        # self.driver.find_element_by_id("pay_now_btn_MasterCredit").click()
         # המתנה לעמוד והכנסת מספר הזמנה למשתנה
         self.wait.until(EC.visibility_of_element_located((By.ID, "orderNumberLabel")))
         order_number = self.payment_page.order_number()
@@ -466,7 +474,11 @@ class test_main(TestCase):
         # הכנסת מספר ההזמנה המופיע למשתנה
         num = self.my_orders_page.order_number()
         # בדיקה שאכן מספר ההזמנה שקיבלתי בסיום ההזמנה ומספר ההזמנה שכן שווים
-        self.assertEqual(num, order_number)
+        # self.assertEqual(num, order_number)
+        if num == order_number:
+            self.xl["A53"] = "passed"
+        else:
+            self.xl["A53"] = "fails"
 
     def test_10(self):
         # למשתנים ייכנסו הנתונים מהאקסל
@@ -483,3 +495,8 @@ class test_main(TestCase):
         # בדיקה שהחיבור הצליח
         # self.assertEqual(username,self.home_page.user_miniTitle_text())
         print(self.home_page.user_miniTitle_text())
+
+    def tearDown(self):
+        self.wb.save("ExcelTesting.xlsx")
+        self.product_page.back_to_home_page_click()
+        self.driver.close()
