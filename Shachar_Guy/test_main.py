@@ -279,11 +279,12 @@ class test_main(TestCase):
         prod1 = "20"
         color1 = "GRAY"
         quantity1 = 5
+        new_quantity1 = 9
         cat2 = "tablets"
         prod2 = "17"
         color2 = "BLACK"
         quantity2 = 8
-
+        new_quantity2 = 6
         # מוצר ראשון
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat1)
@@ -318,23 +319,23 @@ class test_main(TestCase):
         # לחיצה על edit מוצר 2
         self.cart_page.edit_products()[0].click()
         # הורדת הכמות ב2
-        self.product_page.minus_quantity(2)
+        self.product_page.change_quantity(new_quantity1)
         # שמירה בעגלה ומעבר לעמוד עגלת הקניות
         self.product_page.save_to_cart_click()
 
         # בדיקת הכמות החדשה - מוצר 2
-        self.assertEqual(str(quantity2-2),self.cart_page.quantity_products()[0].text)
+        self.assertEqual(str(new_quantity1),self.cart_page.quantity_products()[0].text)
 
         # מוצר 1 - השני בטבלת עגלת הקניות
         # לחיצה על edit מוצר 1
         self.cart_page.edit_products()[1].click()
         # הורדת הכמות ב2
-        self.product_page.minus_quantity(2)
+        self.product_page.change_quantity(new_quantity2)
         # שמירה בעגלה ומעבר לעמוד עגלת הקניות
         self.product_page.save_to_cart_click()
 
         # בדיקת הכמות החדשה - מוצר 1
-        self.assertEqual(str(quantity1 - 2), self.cart_page.quantity_products()[1].text)
+        self.assertEqual(str(new_quantity2), self.cart_page.quantity_products()[1].text)
 
     def test_7(self):
         try:
