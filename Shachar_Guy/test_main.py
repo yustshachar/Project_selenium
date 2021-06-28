@@ -389,11 +389,11 @@ class test_main(TestCase):
         prod = 30
         color = "purple"
         quantity = 10
-        username = "guy586"
-        email = "guy@email.com"
+        username = "iiiii51"
+        email = "iiiii51@email.com"
         password = "Ab123456789"
-        SafePay_username = "guyyy"
-        SafePay_password = "Guyyy1"
+        SafePay_username = "iiiii51"
+        SafePay_password = "Iiiii51"
 
         # לחיצה לכניסה לעמוד הקטגוריה
         self.home_page.click_category(cat)
@@ -448,7 +448,7 @@ class test_main(TestCase):
         self.payment_page.go_to_my_orders()
 
         # בדיקה שההזמנה נמצאת בorder של הuser
-        self.assertEqual(order_num,self.my_orders_page.order_number().text) #check
+        self.assertEqual(order_num,self.my_orders_page.order_number())
 
     def test_9(self):
         # למשתנים ייכנסו הנתונים מהאקסל
