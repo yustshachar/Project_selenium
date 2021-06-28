@@ -1,7 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from time import sleep
 
 class home_page:
     def __init__(self, driver):
@@ -14,10 +13,15 @@ class home_page:
         self.category(name).click()
 
     def user_miniTitle(self):
-        sleep(1)
         return self.driver.find_element_by_css_selector(".containMiniTitle")
 
-    def user_miniTitle_text(self):
+    def user_miniTitle_text_logout(self):
+        wait = WebDriverWait(self.driver, 5)
+        wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".containMiniTitle")))
+        miniTitle = self.user_miniTitle()
+        return miniTitle.text
+
+    def user_miniTitle_text_login(self):
         wait = WebDriverWait(self.driver, 5)
         wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".containMiniTitle")))
         miniTitle = self.user_miniTitle()

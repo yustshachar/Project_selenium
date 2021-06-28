@@ -146,7 +146,7 @@ class test_main(TestCase):
         # שם
         self.assertEqual([name3,name2,name1],self.product_page.names_cart_popup_text())
         # צבע
-        self.assertEqual([color3,color2,color1],self.product_page.colors_cart_popup_text())
+        self.assertEqual([color3.upper(),color2.upper(),color1.upper()],self.product_page.colors_cart_popup_text())
         # כמות
         self.assertEqual([quantity3,quantity2,quantity1],self.product_page.quantities_cart_popup_text())
         #מחיר
@@ -434,7 +434,7 @@ class test_main(TestCase):
         # לחיצה על כפתור SIGN IN
         self.home_page.click_signIn_button()
         # בדיקה שהחיבור הצליח
-        self.assertEqual(username,self.home_page.user_miniTitle_text())
+        self.assertEqual(username,self.home_page.user_miniTitle_text_login())
         self.assertTrue(self.home_page.user_miniTitle().is_displayed())
 
         # התנתקות
@@ -443,7 +443,7 @@ class test_main(TestCase):
         # לחיצה על כפתור Sign out
         self.home_page.click_signOut_button()
         # בדיקה שההתנתקות הצליחה
-        self.assertEqual("",self.home_page.user_miniTitle().text)
+        self.assertEqual("",self.home_page.user_miniTitle_text_logout())
         self.assertFalse(self.home_page.user_miniTitle().is_displayed())
 
     def tearDown(self):
