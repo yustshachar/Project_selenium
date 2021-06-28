@@ -69,7 +69,7 @@ class test_main(TestCase):
             self.product_page.save_to_cart_click()
             # בדיקה האם חיבור הכמות שווה לכמות המופיעה
             self.assertEqual(count1 + count2, int(self.driver.find_element_by_css_selector("#shoppingCartLink>span").text))
-            self.xl["A6"] = "V"
+            self.xl["A6"] = "V" #בדיקה
         except:
             self.xl["A6"] = "X"
 
