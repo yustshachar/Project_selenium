@@ -36,9 +36,9 @@ class product_page:
         for i in range(1, count):
             self.driver.find_element_by_class_name("plus").click()
 
-    def minus_quantity(self, count):
-        for i in range(0, count):
-            self.driver.find_element_by_class_name("minus").click()
+    def change_quantity(self, quantity):
+        self.driver.find_element_by_css_selector("[name = 'quantity']").click()
+        self.driver.find_element_by_css_selector("[name = 'quantity']").send_keys(quantity)
 
     def icon_x_cart(self):
         return self.driver.find_elements_by_css_selector("[class='removeProduct iconCss iconX']")
