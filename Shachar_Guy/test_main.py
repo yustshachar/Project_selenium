@@ -385,82 +385,87 @@ class test_main(TestCase):
 
     def test_8(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        cat = "MICE"
-        prod = 30
-        color = "purple"
-        quantity = 10
-        username = "iiiii51"
-        email = "iiiii51@email.com"
-        password = "Ab123456789"
-        SafePay_username = "iiiii51"
-        SafePay_password = "Iiiii51"
+        cat = self.xl["C47"].value
+        prod = self.xl["C48"].value
+        color = self.xl["C49"].value
+        quantity = self.xl["50"].value
+        username = self.xl["E47"].value
+        email = self.xl["E48"].value
+        password = self.xl["E49"].value
+        SafePay_username = self.xl["G47"].value
+        SafePay_password = self.xl["G48"].value
 
-        # לחיצה לכניסה לעמוד הקטגוריה
-        self.home_page.click_category(cat)
-        # לחיצה לכניסה לעמוד המוצר
-        self.category_page.click_product_id(prod)
-        # בחירת צבע
-        self.product_page.choose_color(color)
-        # בחירת כמות
-        self.product_page.choose_quantity(quantity)
-        # הכנסה לעגלה
-        self.product_page.save_to_cart_click()
-        # ללחוץ על כפתור CHECKOUT בפופ-אפ של הcart
-        self.product_page.checkout_popup_click()
-        # לחיצה על registration ליצירת משתמש חדש
-        self.login_in_order_payment_page.registration_button_click()
-        # מילוי שדה username
-        self.create_account_page.fiil_username_field(username)
-        # מילוי שדה email
-        self.create_account_page.fiil_email_field(email)
-        # מילוי שדה password
-        self.create_account_page.fiil_password_field(password)
-        # מילוי שדה confirm password
-        self.create_account_page.fiil_confirm_password_field(password)
-        # לחיצה על i agree צ'קבוקס
-        self.create_account_page.i_agree_checkbox_click()
-        # לחיצה על כתפור REGISTER
-        self.create_account_page.register_button_click()
-        # לחיצה על הבא
-        self.login_in_order_payment_page.next_button_click()
-        # מילוי שדה SafePay username
-        self.payment_page.fill_SafePay_username_field(SafePay_username)
-        # מילוי שדה SafePay password
-        self.payment_page.fill_SafePay_password_field(SafePay_password)
-        # לחיצה על כפתור PAY NOW
-        self.payment_page.SafePay_pay_now_button_click()
+        try:
+            # לחיצה לכניסה לעמוד הקטגוריה
+            self.home_page.click_category(cat)
+            # לחיצה לכניסה לעמוד המוצר
+            self.category_page.click_product_id(prod)
+            # בחירת צבע
+            self.product_page.choose_color(color)
+            # בחירת כמות
+            self.product_page.choose_quantity(quantity)
+            # הכנסה לעגלה
+            self.product_page.save_to_cart_click()
+            # ללחוץ על כפתור CHECKOUT בפופ-אפ של הcart
+            self.product_page.checkout_popup_click()
+            # לחיצה על registration ליצירת משתמש חדש
+            self.login_in_order_payment_page.registration_button_click()
+            # מילוי שדה username
+            self.create_account_page.fiil_username_field(username)
+            # מילוי שדה email
+            self.create_account_page.fiil_email_field(email)
+            # מילוי שדה password
+            self.create_account_page.fiil_password_field(password)
+            # מילוי שדה confirm password
+            self.create_account_page.fiil_confirm_password_field(password)
+            # לחיצה על i agree צ'קבוקס
+            self.create_account_page.i_agree_checkbox_click()
+            # לחיצה על כתפור REGISTER
+            self.create_account_page.register_button_click()
+            # לחיצה על הבא
+            self.login_in_order_payment_page.next_button_click()
+            # מילוי שדה SafePay username
+            self.payment_page.fill_SafePay_username_field(SafePay_username)
+            # מילוי שדה SafePay password
+            self.payment_page.fill_SafePay_password_field(SafePay_password)
+            # לחיצה על כפתור PAY NOW
+            self.payment_page.SafePay_pay_now_button_click()
 
-        # בדיקה שהתשלום בוצע בהצלחה
-        self.assertTrue(self.payment_page.order_payment_success().is_displayed())
-        self.assertIn("Thank you for buying with Advantage",self.payment_page.thankyou_text())
+            # בדיקה שהתשלום בוצע בהצלחה
+            self.assertTrue(self.payment_page.order_payment_success().is_displayed())
+            self.assertIn("Thank you for buying with Advantage",self.payment_page.thankyou_text())
 
-        # שמירת מספר הזמנה
-        order_num = self.payment_page.order_number()
-        # מעבר לעמוד עגלת קניות
-        self.product_page.cart_click()
+            # שמירת מספר הזמנה
+            order_num = self.payment_page.order_number()
+            # מעבר לעמוד עגלת קניות
+            self.product_page.cart_click()
 
-        # בדיקה שעגלת קניות ריקה
-        self.assertIn("Your shopping cart is empty",self.cart_page.empty_cart_text())
+            # בדיקה שעגלת קניות ריקה
+            self.assertIn("Your shopping cart is empty",self.cart_page.empty_cart_text())
 
-        # לחיצה על user icon
-        self.home_page.nav_userIcon_click()
-        # מעבר לmy orders
-        self.payment_page.go_to_my_orders()
+            # לחיצה על user icon
+            self.home_page.nav_userIcon_click()
+            # מעבר לmy orders
+            self.payment_page.go_to_my_orders()
 
-        # בדיקה שההזמנה נמצאת בorder של הuser
-        self.assertEqual(order_num,self.my_orders_page.order_number())
+            # בדיקה שההזמנה נמצאת בorder של הuser
+            self.assertEqual(order_num,self.my_orders_page.order_number())
+
+            self.xl["A51"] = "V"
+        except:
+            self.xl["A51"] = "X"
 
     def test_9(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        username = self.xl["E53"].value # חייבים משתמש שעוד לא הכניס פרטי אשראי!
-        password = self.xl["E54"].value
-        cat = self.xl["C53"].value
-        prod = self.xl["C54"].value
-        card_num = self.xl["G53"].value
-        cvv = self.xl["G54"].value  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
-        month = self.xl["G55"].value
-        year = self.xl["G56"].value
-        card_name = self.xl["G57"].value
+        username = self.xl["E54"].value # חייבים משתמש שעוד לא הכניס פרטי אשראי!
+        password = self.xl["E55"].value
+        cat = self.xl["C54"].value
+        prod = self.xl["C55"].value
+        card_num = self.xl["G54"].value
+        cvv = self.xl["G55"].value  # באג! הוא מתעלם מהתו הראשון ששמים גם ידנית
+        month = self.xl["G56"].value
+        year = self.xl["G57"].value
+        card_name = self.xl["G58"].value
 
         try:
             # לחיצה לכניסה לעמוד הקטגוריה
@@ -509,14 +514,14 @@ class test_main(TestCase):
             # בדיקה שאכן מספר ההזמנה שקיבלתי בסיום ההזמנה ומספר ההזמנה שכן שווים
             self.assertEqual(number, order_num)
 
-            self.xl["A56"] = "V"
+            self.xl["A57"] = "V"
         except:
-            self.xl["A56"] = "X"
+            self.xl["A57"] = "X"
 
     def test_10(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        username = self.xl["C60"].value
-        password = self.xl["C61"].value
+        username = self.xl["C61"].value
+        password = self.xl["C62"].value
 
         try:
             # התחברות
@@ -541,9 +546,9 @@ class test_main(TestCase):
             self.assertEqual("",self.home_page.user_miniTitle_text_logout())
             self.assertFalse(self.home_page.user_miniTitle().is_displayed())
 
-            self.xl["A62"] = "V"
+            self.xl["A63"] = "V"
         except:
-            self.xl["A62"] = "X"
+            self.xl["A63"] = "X"
 
     def tearDown(self):
         self.wb.save("ExcelTesting.xlsx")
