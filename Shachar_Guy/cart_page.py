@@ -30,4 +30,7 @@ class cart_page:
     def nav_current_location(self):
         return self.driver.find_element_by_css_selector('nav>a[class="select  ng-binding"]')
 
-
+    def empty_cart_text(self):
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div.bigEmptyCart>[translate="Your_shopping_cart_is_empty"]')))
+        return self.driver.find_element_by_css_selector('div.bigEmptyCart>[translate="Your_shopping_cart_is_empty"]').text

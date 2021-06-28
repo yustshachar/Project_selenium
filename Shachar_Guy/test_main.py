@@ -12,6 +12,7 @@ from Shachar_Guy.cart_page import cart_page
 from Shachar_Guy.login_in_order_payment_page import login_in_order_payment_page
 from Shachar_Guy.payment_page import payment_page
 from Shachar_Guy.my_orders_page import my_orders_page
+from Shachar_Guy.create_account_page import create_account_page
 
 class test_main(TestCase):
     def setUp(self):
@@ -31,6 +32,7 @@ class test_main(TestCase):
         self.login_in_order_payment_page=login_in_order_payment_page(self.driver)
         self.payment_page = payment_page(self.driver)
         self.my_orders_page = my_orders_page(self.driver)
+        self.create_account_page = create_account_page(self.driver)
         self.wb = load_workbook("ExcelTesting.xlsx")
         self.xl = self.wb.active
 
@@ -319,23 +321,22 @@ class test_main(TestCase):
         # לחיצה על edit מוצר 2
         self.cart_page.edit_products()[0].click()
         # הורדת הכמות ב2
-        self.product_page.change_quantity(new_quantity1)
+        self.product_page.change_quantity(new_quantity2)
         # שמירה בעגלה ומעבר לעמוד עגלת הקניות
         self.product_page.save_to_cart_click()
 
         # בדיקת הכמות החדשה - מוצר 2
-        self.assertEqual(str(new_quantity1),self.cart_page.quantity_products()[0].text)
+        self.assertEqual(str(new_quantity2),self.cart_page.quantity_products()[0].text)
 
         # מוצר 1 - השני בטבלת עגלת הקניות
         # לחיצה על edit מוצר 1
         self.cart_page.edit_products()[1].click()
         # הורדת הכמות ב2
-        self.product_page.change_quantity(new_quantity2)
+        self.product_page.change_quantity(new_quantity1)
         # שמירה בעגלה ומעבר לעמוד עגלת הקניות
         self.product_page.save_to_cart_click()
-
         # בדיקת הכמות החדשה - מוצר 1
-        self.assertEqual(str(new_quantity2), self.cart_page.quantity_products()[1].text)
+        self.assertEqual(str(new_quantity1), self.cart_page.quantity_products()[1].text)
 
     def test_7(self):
         try:
@@ -360,7 +361,71 @@ class test_main(TestCase):
             self.xl["A41"] = "fails"
 
     def test_8(self):
-        pass
+        # למשתנים ייכנסו הנתונים מהאקסל
+        cat = "MICE"
+        prod = 30
+        color = "purple"
+        quantity = 10
+        username = "iiiii2"
+        email = "iiiii2@email.com"
+        password = "Ab123456789"
+        SafePay_username = "iiiii2"
+        SafePay_password = "Iiiii2"
+
+        # לחיצה לכניסה לעמוד הקטגוריה
+        self.home_page.click_category(cat)
+        # לחיצה לכניסה לעמוד המוצר
+        self.category_page.click_product_id(prod)
+        # בחירת צבע
+        self.product_page.choose_color(color)
+        # בחירת כמות
+        self.product_page.choose_quantity(quantity)
+        # הכנסה לעגלה
+        self.product_page.save_to_cart_click()
+        # ללחוץ על כפתור CHECKOUT בפופ-אפ של הcart
+        self.product_page.checkout_popup_click()
+        # לחיצה על registration ליצירת משתמש חדש
+        self.login_in_order_payment_page.registration_button_click()
+        # מילוי שדה username
+        self.create_account_page.fiil_username_field(username)
+        # מילוי שדה email
+        self.create_account_page.fiil_email_field(email)
+        # מילוי שדה password
+        self.create_account_page.fiil_password_field(password)
+        # מילוי שדה confirm password
+        self.create_account_page.fiil_confirm_password_field(password)
+        # לחיצה על i agree צ'קבוקס
+        self.create_account_page.i_agree_checkbox_click()
+        # לחיצה על כתפור REGISTER
+        self.create_account_page.register_button_click()
+        # לחיצה על הבא
+        self.login_in_order_payment_page.next_button_click()
+        # מילוי שדה SafePay username
+        self.payment_page.fill_SafePay_username_field(SafePay_username)
+        # מילוי שדה SafePay password
+        self.payment_page.fill_SafePay_password_field(SafePay_password)
+        # לחיצה על כפתור PAY NOW
+        self.payment_page.SafePay_pay_now_button_click()
+
+        # בדיקה שהתשלום בוצע בהצלחה
+        self.assertTrue(self.payment_page.order_payment_success().is_displayed())
+        self.assertIn("Thank you for buying with Advantage",self.payment_page.thankyou_text())
+
+        # שמירת מספר הזמנה
+        order_num = self.payment_page.order_number()
+        # מעבר לעמוד עגלת קניות
+        self.product_page.cart_click()
+
+        # בדיקה שעגלת קניות ריקה
+        self.assertIn("Your shopping cart is empty",self.cart_page.empty_cart_text())
+
+        # לחיצה על user icon
+        self.home_page.nav_userIcon_click()
+        # מעבר לmy orders
+        self.payment_page.go_to_my_orders()
+
+        # בדיקה שההזמנה נמצאת בorder של הuser
+        self.assertEqual(order_num,self.my_orders_page.order_number().text) #check
 
     def test_9(self):
         try:
@@ -425,7 +490,7 @@ class test_main(TestCase):
 
     def test_10(self):
         # למשתנים ייכנסו הנתונים מהאקסל
-        username = "guy586"
+        username = "iiiii2"
         password = "Ab123456789"
 
         # התחברות

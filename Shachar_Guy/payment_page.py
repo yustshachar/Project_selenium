@@ -1,4 +1,7 @@
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 class payment_page:
     def __init__(self, driver):
@@ -43,4 +46,22 @@ class payment_page:
     def go_to_my_orders(self):
         self.driver.find_element_by_css_selector("#loginMiniTitle>[class='option ng-scope']").click()
 
+    def fill_SafePay_username_field(self, username):
+        self.driver.find_element_by_name("safepay_username").send_keys(username)
 
+    def fill_SafePay_password_field(self, password):
+        self.driver.find_element_by_name("safepay_password").send_keys(password)
+
+    def SafePay_pay_now_button(self):
+        return self.driver.find_element_by_id("pay_now_btn_SAFEPAY")
+
+    def SafePay_pay_now_button_click(self):
+        self.SafePay_pay_now_button().click()
+
+    def order_payment_success(self):
+        wait = WebDriverWait(self.driver, 5)
+        wait.until(EC.visibility_of_element_located((By.ID, "orderPaymentSuccess")))
+        return self.driver.find_element_by_id("orderPaymentSuccess")
+
+    def thankyou_text(self):
+        return self.driver.find_element_by_css_selector('[translate="Thank_you_for_buying_with_Advantage"]').text

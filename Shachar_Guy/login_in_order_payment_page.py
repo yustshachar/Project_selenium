@@ -19,3 +19,9 @@ class login_in_order_payment_page:
 
     def next_button_click(self):
         self.next_button().click()
+
+    def registration_button(self):
+        return self.driver.find_element_by_id("registration_btnundefined")
+
+    def registration_button_click(self):
+        self.registration_button().click()
