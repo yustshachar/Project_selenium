@@ -1,0 +1,181 @@
+Index: Shachar_Guy/tester2.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from selenium import webdriver\r\nfrom selenium.webdriver.support.select import Select\r\nfrom time import sleep\r\n\r\ndriver = webdriver.Chrome(executable_path=r\"C:\\Users\\yusts\\Desktop\\שחר\\בדיקות תוכנה\\sel\\chromedriver.exe\")\r\ndriver.implicitly_wait(20)\r\ndriver.get(\"https://www.advantageonlineshopping.com/#/\")\r\ndriver.maximize_window()\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shachar_Guy/tester2.py b/Shachar_Guy/tester2.py
+--- a/Shachar_Guy/tester2.py	(revision 8a5496e1687e8e3322a8aceb40c751caffed9f75)
++++ b/Shachar_Guy/tester2.py	(date 1624531448210)
+@@ -2,10 +2,12 @@
+ from selenium.webdriver.support.select import Select
+ from time import sleep
+ 
+-driver = webdriver.Chrome(executable_path=r"C:\Users\yusts\Desktop\שחר\בדיקות תוכנה\sel\chromedriver.exe")
++driver = webdriver.Chrome(executable_path=r"C:\selenium\chromedriver.exe")
+ driver.implicitly_wait(20)
+ driver.get("https://www.advantageonlineshopping.com/#/")
+ driver.maximize_window()
+ 
+ 
+ 
++
++
+Index: Shachar_Guy/test_main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from unittest import TestCase\r\nfrom openpyxl import *\r\nfrom selenium import webdriver\r\nfrom time import sleep\r\nfrom Shachar_Guy.home_page import home_page\r\nfrom Shachar_Guy.category_page import category_page\r\nfrom Shachar_Guy.product_page import product_page\r\nfrom Shachar_Guy.card_page import card_page\r\n\r\nclass test_main(TestCase):\r\n    def setUp(self):\r\n        self.driver = webdriver.Chrome(executable_path=r\"C:\\Users\\yusts\\Desktop\\שחר\\בדיקות תוכנה\\sel\\chromedriver.exe\")\r\n        self.driver.implicitly_wait(20)\r\n        self.link_web = \"https://www.advantageonlineshopping.com/#/\"\r\n        self.driver.get(self.link_web)\r\n        self.driver.maximize_window()\r\n        self.home_page=home_page(self.driver)\r\n        self.category_page=category_page(self.driver)\r\n        self.product_page=product_page(self.driver)\r\n        self.card_page=card_page(self.driver)\r\n        self.xl = load_workbook(\"ExcelTesting.xlsx\").active\r\n\r\n    def tearDown(self):\r\n        self.product_page.back_to_home_page_click()\r\n        self.driver.close()\r\n\r\n    def test_1(self):\r\n        # למשתנים ייכנסו הנתונים מהאקסל\r\n        cat1 = self.xl[\"C2\"].value\r\n        prod1 = self.xl[\"C3\"].value\r\n        color1 = self.xl[\"C4\"].value\r\n        count1= self.xl[\"C5\"].value\r\n        cat2 = self.xl[\"E2\"].value\r\n        prod2=self.xl[\"E3\"].value\r\n        color2 = self.xl[\"E4\"].value\r\n        count2= self.xl[\"E5\"].value\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat1)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod1)\r\n        # בחירת צבע\r\n        # self.product_page.choose_color(color1)\r\n        # בחירת כמות\r\n        self.product_page.choose_quantity(count1)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # חזרה לעמוד הראשי\r\n        self.product_page.back_to_home_page_click()\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat2)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod2)\r\n        # בחירת צבע\r\n        # self.product_page.choose_color(color2)\r\n        # בחירת כמות\r\n        self.product_page.choose_quantity(count2)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # בדיקה האם חיבור הכמות שווה לכמות המופיעה\r\n        self.assertEqual(count1+count2, int(self.driver.find_element_by_css_selector(\"#shoppingCartLink>span\").text))\r\n\r\n    def test_2(self):\r\n        pass\r\n\r\n    def test_3(self):\r\n        cat1 = self.xl[\"C13\"].value\r\n        prod1 = self.xl[\"C14\"].value\r\n        cat2 = self.xl[\"E13\"].value\r\n        prod2 = self.xl[\"E14\"].value\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat1)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod1)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # חזרה לעמוד הראשי\r\n        self.product_page.back_to_home_page_click()\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat2)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod2)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # בודק את כמות המוצרים בעגלה\r\n        before = len(self.product_page.icon_x_cart())\r\n        # מוחק את המוצר האחרון שהצטרף לעגלת קניות\r\n        self.product_page.icon_x_cart_click()\r\n        # בודק שוב את כמות הפריטים בעגלה\r\n        after = len(self.product_page.icon_x_cart())\r\n        # בודק שהכמות ירדה ב1\r\n        self.assertEqual(before, after+1)\r\n\r\n    def test_4(self):\r\n        pass\r\n\r\n    def test_5(self):\r\n        # למשתנים ייכנסו הנתונים מהאקסל\r\n        cat1 = self.xl[\"C22\"].value\r\n        prod1 = self.xl[\"C23\"].value\r\n        count1 = self.xl[\"C24\"].value\r\n        cat2 = self.xl[\"E22\"].value\r\n        prod2 = self.xl[\"E23\"].value\r\n        count2 = self.xl[\"E24\"].value\r\n        cat3 = self.xl[\"G22\"].value\r\n        prod3 = self.xl[\"G23\"].value\r\n        count3 = self.xl[\"G24\"].value\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat1)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod1)\r\n        # הכנסת מחיר המוצר כפול הכמות למשתנה\r\n        price_p1 = self.product_page.price_product() * count1\r\n        # בחירת כמות\r\n        self.product_page.choose_quantity(count1)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # חזרה לעמוד הראשי\r\n        self.product_page.back_to_home_page_click()\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat2)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod2)\r\n        # הכנסת מחיר המוצר כפול הכמות למשתנה\r\n        price_p2 = self.product_page.price_product() * count2\r\n        # בחירת כמות\r\n        self.product_page.choose_quantity(count2)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # חזרה לעמוד הראשי\r\n        self.product_page.back_to_home_page_click()\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat3)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod3)\r\n        # הכנסת מחיר המוצר כפול הכמות למשתנה\r\n        price_p3 = self.product_page.price_product() * count3\r\n        # בחירת כמות\r\n        self.product_page.choose_quantity(count3)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # מעבר לעמוד עגלת הקניות\r\n        self.product_page.card_click()\r\n        # בדיקה אם המחיר הסופי שווה למחירי המוצרים כפול הכמויות (עם עיגול של 2 ספרות אחרי הנקודה)\r\n        self.assertEqual(self.card_page.total(), round(price_p1+price_p2+price_p3,2))\r\n        # הדפסת עגלת הקניות\r\n        for i in range(3):\r\n            print(self.card_page.name_products()[i].text, end=\"\\t\")\r\n            print(self.card_page.quantity_products()[i].text, end=\"\\t\")\r\n            print(self.card_page.price_products()[i].text, end=\"\\t\")\r\n            print()\r\n\r\n    def test_6(self):\r\n        pass\r\n\r\n    def test_7(self):\r\n        cat = \"tablets\"\r\n        prod = 18\r\n        # לחיצה לכניסה לעמוד הקטגוריה\r\n        self.home_page.click_category(cat)\r\n        # לחיצה לכניסה לעמוד המוצר\r\n        self.category_page.click_product_id(prod)\r\n        # הכנסה לעגלה\r\n        self.product_page.save_to_card_click()\r\n        # חזרה לעמוד הקודם\r\n        self.driver.back()\r\n        # בודק אם הכותרת היא טאבלט\r\n        self.assertEqual(self.category_page.text_title_page(), \"TABLETS\")\r\n        # חזרה לעמוד הקודם\r\n        self.driver.back()\r\n        # בודק שהכתובת הנוכחית היא הכתובת של עמוד הבית\r\n        self.assertEqual(self.driver.current_url, self.link_web)\r\n\r\n    def test_8(self):\r\n        pass\r\n\r\n    def test_9(self):\r\n        pass\r\n\r\n    def test_10(self):\r\n        pass\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shachar_Guy/test_main.py b/Shachar_Guy/test_main.py
+--- a/Shachar_Guy/test_main.py	(revision 8a5496e1687e8e3322a8aceb40c751caffed9f75)
++++ b/Shachar_Guy/test_main.py	(date 1624531448204)
+@@ -9,7 +9,7 @@
+ 
+ class test_main(TestCase):
+     def setUp(self):
+-        self.driver = webdriver.Chrome(executable_path=r"C:\Users\yusts\Desktop\שחר\בדיקות תוכנה\sel\chromedriver.exe")
++        self.driver = webdriver.Chrome(executable_path=r"C:\selenium\chromedriver.exe")
+         self.driver.implicitly_wait(20)
+         self.link_web = "https://www.advantageonlineshopping.com/#/"
+         self.driver.get(self.link_web)
+Index: Shachar_Guy/home_page.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class home_page:\r\n    def __init__(self, driver):\r\n        self.driver=driver\r\n\r\n    def category(self, name):\r\n        return self.driver.find_element_by_id(f\"{name}Img\")\r\n\r\n    def click_category(self, name):\r\n        self.category(name).click()\r\n\r\n    \r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Shachar_Guy/home_page.py b/Shachar_Guy/home_page.py
+--- a/Shachar_Guy/home_page.py	(revision 8a5496e1687e8e3322a8aceb40c751caffed9f75)
++++ b/Shachar_Guy/home_page.py	(date 1624527566440)
+@@ -7,5 +7,3 @@
+ 
+     def click_category(self, name):
+         self.category(name).click()
+-
+-    
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_22_06_2021_08_51__Default_Changelist_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_22_06_2021_08_51__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_22_06_2021_08_51__Default_Changelist_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_22_06_2021_08_51__Default_Changelist_.xml	(revision 8a5496e1687e8e3322a8aceb40c751caffed9f75)
++++ /dev/null	(revision 8a5496e1687e8e3322a8aceb40c751caffed9f75)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_22_06_2021_08_51_[Default_Changelist]" date="1624341080028" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_06_2021_08_51_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 22/06/2021 08:51 [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"1dc88f18-eb89-4374-89e7-646ba04ad2dc\" name=\"Default Changelist\" comment=\"עדכון שחר\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1uFtbjuVnjQV6X9rYwQB8hosQRH\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/../pythonProject1\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\yusts\\PycharmProjects\\Project_selenium\\Shachar_Guy\" />\r\n      <recent name=\"C:\\Users\\yusts\\PycharmProjects\\Project_selenium\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Python tests.Unittests for test_main.test_main.test_7\">\r\n    <configuration name=\"main\" type=\"PythonConfigurationType\" factoryName=\"Python\" nameIsGenerated=\"true\">\r\n      <module name=\"Project_selenium\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/main.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"tester5\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Project_selenium\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Shachar_Guy\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Shachar_Guy/tester5.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Unittests for test_main.test_main.test_3\" type=\"tests\" factoryName=\"Unittests\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Project_selenium\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Shachar_Guy\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\r\n      <option name=\"_new_target\" value=\"&quot;test_main.test_main.test_3&quot;\" />\r\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Unittests for test_main.test_main.test_5\" type=\"tests\" factoryName=\"Unittests\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Project_selenium\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Shachar_Guy\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\r\n      <option name=\"_new_target\" value=\"&quot;test_main.test_main.test_5&quot;\" />\r\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Unittests for test_main.test_main.test_7\" type=\"tests\" factoryName=\"Unittests\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Project_selenium\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Shachar_Guy\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\r\n      <option name=\"_new_target\" value=\"&quot;test_main.test_main.test_7&quot;\" />\r\n      <option name=\"_new_targetType\" value=\"&quot;PYTHON&quot;\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"Unittests in test_main.py\" type=\"tests\" factoryName=\"Unittests\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"Project_selenium\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Shachar_Guy\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"_new_additionalArguments\" value=\"&quot;&quot;\" />\r\n      <option name=\"_new_target\" value=\"&quot;$PROJECT_DIR$/Shachar_Guy/test_main.py&quot;\" />\r\n      <option name=\"_new_targetType\" value=\"&quot;PATH&quot;\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python tests.Unittests for test_main.test_main.test_7\" />\r\n        <item itemvalue=\"Python.tester5\" />\r\n        <item itemvalue=\"Python tests.Unittests in test_main.py\" />\r\n        <item itemvalue=\"Python tests.Unittests for test_main.test_main.test_5\" />\r\n        <item itemvalue=\"Python tests.Unittests for test_main.test_main.test_3\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"1dc88f18-eb89-4374-89e7-646ba04ad2dc\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1624273237960</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1624273237960</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00001\" summary=\"check\">\r\n      <created>1624276436772</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00001\" />\r\n      <updated>1624276436772</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00002\" summary=\"check2\">\r\n      <created>1624276646335</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00002\" />\r\n      <updated>1624276646335</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00003\" summary=\"check2\">\r\n      <created>1624276796163</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00003\" />\r\n      <updated>1624276796163</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00004\" summary=\"check2\">\r\n      <created>1624278531776</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00004\" />\r\n      <updated>1624278531776</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00005\" summary=\"check2\">\r\n      <created>1624280564359</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00005\" />\r\n      <updated>1624280564359</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00006\" summary=\"עדכון תקייה\">\r\n      <created>1624340966360</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00006\" />\r\n      <updated>1624340966360</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00007\" summary=\"עדכון תקייה\">\r\n      <created>1624341108724</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00007\" />\r\n      <updated>1624341108724</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00008\" summary=\"עדכון תקייה\">\r\n      <created>1624343751391</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00008\" />\r\n      <updated>1624343751391</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00009\" summary=\"עדכון שחר\">\r\n      <created>1624344555425</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00009\" />\r\n      <updated>1624344555425</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00010\" summary=\"עדכון שחר\">\r\n      <created>1624350964207</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00010\" />\r\n      <updated>1624350964207</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00011\" summary=\"עדכון שחר\">\r\n      <created>1624358645678</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00011\" />\r\n      <updated>1624358645678</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00012\" summary=\"עדכון שחר\">\r\n      <created>1624454537272</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00012\" />\r\n      <updated>1624454537272</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00013\" summary=\"עדכון שחר\">\r\n      <created>1624519292922</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00013\" />\r\n      <updated>1624519292922</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00014\" summary=\"עדכון שחר\">\r\n      <created>1624519802881</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00014\" />\r\n      <updated>1624519802881</updated>\r\n    </task>\r\n    <task id=\"LOCAL\u200E00015\" summary=\"עדכון שחר\">\r\n      <created>1624525611858</created>\r\n      <option name=\"number\" value=\"LOCAL\u200E00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL\u200E00015\" />\r\n      <updated>1624525611858</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"16\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"check\" />\r\n    <MESSAGE value=\"check2\" />\r\n    <MESSAGE value=\"עדכון תקייה\" />\r\n    <MESSAGE value=\"עדכון שחר\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"עדכון שחר\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" suspend=\"THREAD\" type=\"python-line\">\r\n          <url>file://$PROJECT_DIR$/main.py</url>\r\n          <line>8</line>\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 8a5496e1687e8e3322a8aceb40c751caffed9f75)
++++ b/.idea/workspace.xml	(date 1624531283382)
+@@ -1,7 +1,13 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="עדכון שחר" />
++    <list default="true" id="1dc88f18-eb89-4374-89e7-646ba04ad2dc" name="Default Changelist" comment="check2">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_2021_14_55__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_06_2021_14_55__Default_Changelist_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_06_2021_08_51__Default_Changelist_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Shachar_Guy/home_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/home_page.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Shachar_Guy/tester2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Shachar_Guy/tester2.py" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -36,7 +42,7 @@
+       <recent name="C:\Users\yusts\PycharmProjects\Project_selenium" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Python tests.Unittests for test_main.test_main.test_7">
++  <component name="RunManager" selected="Python.tester2">
+     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+       <module name="Project_selenium" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+@@ -58,7 +64,7 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="tester5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++    <configuration name="tester2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Project_selenium" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -70,7 +76,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Shachar_Guy/tester5.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Shachar_Guy/tester2.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -79,18 +85,25 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="Unittests for test_main.test_main.test_3" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
++    <configuration name="tester5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Project_selenium" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
++      <envs>
++        <env name="PYTHONUNBUFFERED" value="1" />
++      </envs>
+       <option name="SDK_HOME" value="" />
+       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Shachar_Guy" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <option name="_new_additionalArguments" value="&quot;&quot;" />
+-      <option name="_new_target" value="&quot;test_main.test_main.test_3&quot;" />
+-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Shachar_Guy/tester5.py" />
++      <option name="PARAMETERS" value="" />
++      <option name="SHOW_COMMAND_LINE" value="false" />
++      <option name="EMULATE_TERMINAL" value="false" />
++      <option name="MODULE_MODE" value="false" />
++      <option name="REDIRECT_INPUT" value="false" />
++      <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
+     <configuration name="Unittests for test_main.test_main.test_5" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+@@ -137,11 +150,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Python.tester2" />
+         <item itemvalue="Python tests.Unittests for test_main.test_main.test_7" />
+         <item itemvalue="Python.tester5" />
+         <item itemvalue="Python tests.Unittests in test_main.py" />
+         <item itemvalue="Python tests.Unittests for test_main.test_main.test_5" />
+-        <item itemvalue="Python tests.Unittests for test_main.test_main.test_3" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -238,13 +251,7 @@
+       <option name="presentableId" value="LOCAL‎00014" />
+       <updated>1624519802881</updated>
+     </task>
+-    <task id="LOCAL‎00015" summary="עדכון שחר">
+-      <created>1624525611858</created>
+-      <option name="number" value="LOCAL‎00015" />
+-      <option name="presentableId" value="LOCAL‎00015" />
+-      <updated>1624525611858</updated>
+-    </task>
+-    <option name="localTasksCounter" value="16" />
++    <option name="localTasksCounter" value="15" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
